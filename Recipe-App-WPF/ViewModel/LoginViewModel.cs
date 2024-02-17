@@ -118,7 +118,7 @@ namespace Recipe_App_WPF.ViewModel
                 }
                 else
                 {
-                    ErrorMessage = "Invalid email or password";
+                    ErrorMessage = " * Invalid email or password";
                 }
             }
 
