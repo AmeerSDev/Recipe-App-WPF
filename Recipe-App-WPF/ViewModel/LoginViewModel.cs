@@ -1,9 +1,10 @@
-﻿using Recipe_App_WPF.Model;
-using Recipe_App_WPF.Repoistories;
+﻿using Recipe_App_WPF.Extensions;
+using Recipe_App_WPF.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Security;
 using System.Security.Principal;
 using System.Text;
@@ -19,8 +20,6 @@ namespace Recipe_App_WPF.ViewModel
         private SecureString _password;
         private string _errorMessage;
         private bool _isViewVisible = true;
-
-        private IUserRepository userRepoistory;
 
         public string Email
         {
@@ -75,15 +74,14 @@ namespace Recipe_App_WPF.ViewModel
         }
         // -> Command
         public ICommand LoginCommand { get; }
-        public ICommand RecoverPasswordCommand { get; }
-        public ICommand ShowPasswordCommand { get; }
-        public ICommand RememberPasswordCommand { get; }
+        //public ICommand RecoverPasswordCommand { get; }
+        //public ICommand ShowPasswordCommand { get; }
+        //public ICommand RememberPasswordCommand { get; }
 
         public LoginViewModel()
         {
-            userRepoistory = new UserRepository();
+
             LoginCommand = new ViewModelCommand(ExecuteLogicCommand, CanExecuteLoginCommand);
-            RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand(""));
         }
 
         private bool CanExecuteLoginCommand(object obj)
@@ -97,23 +95,33 @@ namespace Recipe_App_WPF.ViewModel
             return validData;
         }
 
-        private void ExecuteLogicCommand(object obj)
+        private async void ExecuteLogicCommand(object obj)
         {
-            var isValidUser = userRepoistory.AuthenticateUser(new NetworkCredential(Email, Password));
-            if (isValidUser)
+            using (var client = new HttpClient())
             {
-                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Email), null);
-                IsViewVisible = false;
-            }
-            else
+                var values = new Dictionary<string, string>
             {
-                ErrorMessage = "Invalid email or password";
-            }
-        }
+                { "email", Email },
+                { "password", SecureStringExtensions.ToUnsecuredString(Password) }
+            };
 
-        private void ExecuteRecoverPassCommand(string email)
-        {
-            throw new NotImplementedException();
+                var content = new FormUrlEncodedContent(values);
+                var response = await client.PostAsync("http://localhost:8000/api/user/token/", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Login was successful, update LoginModel and raise event
+                    LoginModel.GetInstance().LoggedIn = true;
+                    LoginModel.GetInstance().RaiseUserLoggedIn();
+                    IsViewVisible = false;
+
+                }
+                else
+                {
+                    ErrorMessage = "Invalid email or password";
+                }
+            }
+
         }
     }
 }
