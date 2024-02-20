@@ -1,4 +1,5 @@
-﻿using Recipe_App_WPF.Extensions;
+﻿using Newtonsoft.Json;
+using Recipe_App_WPF.Extensions;
 using Recipe_App_WPF.Model;
 using System;
 using System.Collections.Generic;
@@ -100,28 +101,33 @@ namespace Recipe_App_WPF.ViewModel
             using (var client = new HttpClient())
             {
                 var values = new Dictionary<string, string>
-            {
-                { "email", Email },
-                { "password", SecureStringExtensions.ToUnsecuredString(Password) }
-            };
+                {
+                    { "email", Email },
+                    { "password", SecureStringExtensions.ToUnsecuredString(Password) }
+                };
 
                 var content = new FormUrlEncodedContent(values);
                 var response = await client.PostAsync("http://localhost:8000/api/user/token/", content);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    // Login was successful, update LoginModel and raise event
+                    // Login was successful, read the token
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var tokenResponse = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseContent);
+                    string token = tokenResponse["token"];
+
+                    // Update LoginModel with the token and raise event
+                    LoginModel.GetInstance().Token = token;
                     LoginModel.GetInstance().LoggedIn = true;
                     LoginModel.GetInstance().RaiseUserLoggedIn();
                     IsViewVisible = false;
-
                 }
                 else
                 {
                     ErrorMessage = " * Invalid email or password";
                 }
             }
-
         }
+
     }
 }
