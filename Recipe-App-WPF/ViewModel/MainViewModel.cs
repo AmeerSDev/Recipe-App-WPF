@@ -32,7 +32,6 @@ namespace Recipe_App_WPF.ViewModel
 
         public MainViewModel()
         {
-            _currentUserAccount = new UserAccountModel();
             _loginModel = LoginModel.GetInstance();
             _loginModel.UserLoggedIn += LoginModel_UserLoggedIn;
             LoadCurrentUserData();
@@ -45,7 +44,7 @@ namespace Recipe_App_WPF.ViewModel
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", _loginModel.Token);
                 var response = await client.GetAsync("http://localhost:8000/api/user/me/");
 
-                if (response.IsSuccessStatusCode)
+                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
                     var tokenResponse = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseContent);
@@ -59,8 +58,8 @@ namespace Recipe_App_WPF.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Invalid user, not logged in");
-                    Application.Current.Shutdown();
+                    //MessageBox.Show("Invalid user, not logged in");
+                    //Application.Current.Shutdown();
                 }
             }
         }

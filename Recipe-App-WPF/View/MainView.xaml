@@ -5,15 +5,166 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Recipe_App_WPF.View"
         xmlns:viewModel="clr-namespace:Recipe_App_WPF.ViewModel"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
-        Title="MainView" Height="450" Width="800">
+        Title="MainView" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True">
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
-    <Grid>
-        <TextBlock Text="{Binding CurrentUserAccount.DisplayName}"
-                   FontSize="30"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
-    </Grid>
+    <Border CornerRadius="10"
+            BorderThickness="2">
+
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"></GradientStop>
+                <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.75"></GradientStop>
+                <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"></GradientStop>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="101*"/>
+                <RowDefinition Height="345*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <!--Navigation menu-->
+                <ColumnDefinition Width="250"/>
+                <!--Content Section-->
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Navation Menu-->
+            <Border CornerRadius="10,0,0,10"
+                    Grid.Column="0" Grid.RowSpan="2">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1, 1.5">
+                        <GradientStop Color="{StaticResource winBorderColor3}" Offset="0"/>
+                        <GradientStop Color="Bisque" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <StackPanel>
+                    <!--Logo-->
+                    <StackPanel Orientation="Horizontal"
+                                Height="35"
+                                Margin="15,25,0,40">
+                        <Image Source="/Images/main-logo.png" Width="70" Height="100"/>
+                        <TextBlock Text="Recipe App"
+                                   Foreground="{StaticResource textBoxColor}"
+                                   Margin="5,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontWeight="Medium"
+                                   FontSize="15"
+                                   FontFamily="Rockwell Extra Bold"/>
+
+                    </StackPanel>
+                    
+                    <!--Menu Buttons-->
+                        <!--Dashboard-->
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource sideMenuIconColor}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource sideMenuIconColor}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="UserGroup" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Customers" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource sideMenuIconColor}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Truck" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Transactions" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource sideMenuIconColor}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="ShoppingBag" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Shop" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource sideMenuIconColor}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Box" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Track Order" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource sideMenuIconColor}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Wallet" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Balance" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource sideMenuIconColor}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="PieChart" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Report" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource sideMenuIconColor}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Tools" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Settings" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                </StackPanel>
+            </Border>
+            <!--Main Section-->
+            <Border CornerRadius="0,10,10,0"
+                    Grid.Column="1" Grid.RowSpan="2">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0, 1">
+                        <GradientStop Color="{StaticResource primaryBackColor2}" Offset="1"/>
+                        <GradientStop Color="Bisque" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <!--Control Bar Measures-->
+                    <RowDefinition Height="25"/>
+                    <!--Header / Caption Measures-->
+                    <RowDefinition Height="35"/>
+                    <!--Content section / Child views Measures-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Control Bar-->
+                <StackPanel x:Name="pnlControl"
+                            Orientation="Horizontal"
+                            Grid.Row="0"
+                            FlowDirection="RightToLeft"
+                            Background="Transparent"
+                            Margin="0,0,5,0"
+                            MouseLeftButtonDown="pnlControl_MouseLeftButtonDown"
+                            MouseEnter="pnlControl_MouseEnter">
+                    
+                </StackPanel>
+                
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

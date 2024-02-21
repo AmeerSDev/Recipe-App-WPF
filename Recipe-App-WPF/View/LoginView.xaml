@@ -35,16 +35,16 @@
                 Opacity="0.75">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="DarkOliveGreen" Offset="0"></GradientStop>
-                    <GradientStop Color="LightPink" Offset="0.75"></GradientStop>
-                    <GradientStop Color="LightYellow" Offset="1"></GradientStop>
+                    <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"></GradientStop>
+                    <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.75"></GradientStop>
+                    <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"></GradientStop>
                 </LinearGradientBrush>
             </Border.BorderBrush>
 
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                    <GradientStop Color="LightPink" Offset="0"></GradientStop>
-                    <GradientStop Color="LightYellow" Offset="0.75"></GradientStop>
+                    <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"></GradientStop>
+                    <GradientStop Color="{StaticResource primaryBackColor2}" Offset="0.75"></GradientStop>
                 </LinearGradientBrush>
             </Border.Background>
             <Grid>
@@ -61,7 +61,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="LOG IN"
-                           Foreground="DarkSlateGray"
+                           Foreground="{StaticResource textBoxColor}"
                            FontSize="10"
                            FontFamily="Montserrat"
                            Grid.Column="0"
@@ -78,10 +78,10 @@
                         Click="btnMinimize_Click">
                     <Button.Style>
                         <Style TargetType="Button">
-                            <Setter Property="Background" Value="SandyBrown"/>
+                            <Setter Property="Background" Value="{StaticResource buttonColor}"/>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="SaddleBrown"/>
+                                    <Setter Property="Background" Value="{StaticResource buttonHoverColor}"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -110,10 +110,10 @@
 
                     <Button.Style>
                         <Style TargetType="Button">
-                            <Setter Property="Background" Value="SandyBrown"/>
+                            <Setter Property="Background" Value="{StaticResource buttonColor}"/>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="SaddleBrown"/>
+                                    <Setter Property="Background" Value="{StaticResource buttonHoverColor}"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -142,21 +142,21 @@
                            Width="120" Height="120"/>
 
                     <TextBlock Text="Made By Ameer Sobih"
-                               Foreground="DarkSlateGray"
+                               Foreground="{StaticResource textBoxColor}"
                                FontSize="15"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                HorizontalAlignment="Center"
                                Margin="0,-25,0,0"/>
                     <TextBlock Text="Recipe App - Demo Project"
-                               Foreground="DarkSlateGray"
+                               Foreground="{StaticResource textBoxColor}"
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                HorizontalAlignment="Center"
                                TextWrapping="Wrap"/>
                     <TextBlock Text="Email"
-                               Foreground="DarkSlateGray"
+                               Foreground="{StaticResource textBoxColor}"
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -168,7 +168,7 @@
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
-                               Foreground="DarkSlateGray"
+                               Foreground="{StaticResource textBoxColor}"
                                CaretBrush="LightGray"
                                BorderBrush="DarkGray"
                                BorderThickness="0,0,0,2"
@@ -187,7 +187,7 @@
                     </TextBox>
 
                     <TextBlock Text="Password"
-                               Foreground="DarkSlateGray"
+                               Foreground="{StaticResource textBoxColor}"
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -200,7 +200,7 @@
                     </customcontrols:BindablePasswordBox>
 
                     <TextBlock Text="{Binding ErrorMessage}"
-                               Foreground="#D7596D"
+                               Foreground="{StaticResource errorMessageColor}"
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
