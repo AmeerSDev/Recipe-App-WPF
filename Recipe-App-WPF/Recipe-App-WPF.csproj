@@ -131,7 +131,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\chef-hat.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\background-img.jpg" />
     <Resource Include="Images\key-icon.png" />

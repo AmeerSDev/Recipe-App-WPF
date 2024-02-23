@@ -141,7 +141,7 @@
                         <GradientStop Color="Bisque" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
-            </Border>
+ 
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -153,18 +153,96 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <!--Control Bar-->
-                <StackPanel x:Name="pnlControl"
-                            Orientation="Horizontal"
+                <StackPanel x:Name="pnlControlBar"
                             Grid.Row="0"
+                            Orientation="Horizontal"
                             FlowDirection="RightToLeft"
                             Background="Transparent"
                             Margin="0,0,5,0"
                             MouseLeftButtonDown="pnlControl_MouseLeftButtonDown"
                             MouseEnter="pnlControl_MouseEnter">
+                    <Button x:Name="btnClose"
+                            Margin="2,0,5,0"
+                            Style="{StaticResource controlButton}"
+                            Tag="{StaticResource buttonColor}"
+                            Click="btnClose_Click">
+                        <fa:IconImage Icon="Xmark" Style="{StaticResource controlButtonIcon}"/>
+                    </Button>
+
+                    <Button x:Name="btnMaximize"
+                            Margin="0,0,5,0"
+                            Style="{StaticResource controlButton}"
+                            Tag="{StaticResource buttonColor}"
+                            Click="btnMaximize_Click">
+                        <fa:IconImage Icon="Square" Style="{StaticResource controlButtonIcon}"/>
+                    </Button>
+
+                    <Button x:Name="btnMinimize"
+                            Margin="0,0,5,0"
+                            Style="{StaticResource controlButton}"
+                            Tag="{StaticResource buttonColor}"
+                            Click="btnMinimize_Click">
+                        <fa:IconImage Icon="WindowMinimize" Style="{StaticResource controlButtonIcon}"/>
+                    </Button>
                     
                 </StackPanel>
-                
-            </Grid>
+
+                    <!--Header / Caption Measures-->
+                    <Grid Grid.Row="1" 
+                                    Margin="0,7,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <!--Caption -->
+                        <StackPanel Grid.Column="0"
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+
+                            <fa:IconImage Icon="Home"
+                                          Height="20"
+                                          Width="20"
+                                          Foreground="{StaticResource sideMenuIconColor}"
+                                          Margin="35,0,10,0"/>
+                            
+                            <TextBlock Text="Dashboard"
+                                       Foreground="{StaticResource textBoxColor}"
+                                       FontSize="16"
+                                       FontFamily="Rockwell"
+                                       FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+
+                        </StackPanel>
+                        
+                        <!--User options-->
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    FlowDirection="RightToLeft"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,10,0">
+                            <Button Style="{StaticResource iconButton}"
+                                    Tag="{StaticResource sideMenuIconColor}">
+                                <fa:IconImage Icon="AngleDown" Style="{StaticResource iconButtonIcon}"/>
+                            </Button>
+
+                            <TextBlock Text="{Binding CurrentUserAccount.DisplayName}"
+                                       Foreground="{StaticResource textBoxColor}"
+                                       FontFamily="Rockwell"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"/>
+                            <Rectangle Height="30" Width="30"
+                                     Margin="1,0,10,-4">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="/Images/chef-hat.png" Stretch="UniformToFill"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+         </Border>
         </Grid>
     </Border>
 </Window>
