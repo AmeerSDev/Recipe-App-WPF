@@ -114,8 +114,7 @@ namespace Recipe_App_WPF.ViewModel
                     CurrentUserAccount = new UserAccountModel()
                     {
                         Username = tokenResponse["email"],
-                        DisplayName = $"Welcome {tokenResponse["name"]} ",
-                        ProfilePictures = null
+                        DisplayName = $"Welcome {tokenResponse["name"]} "
 
                     };
                 }

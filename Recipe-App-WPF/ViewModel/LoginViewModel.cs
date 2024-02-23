@@ -18,6 +18,7 @@ namespace Recipe_App_WPF.ViewModel
     public class LoginViewModel : ViewModelBase
     {
         private string _email;
+        private bool _isSignUpPopupOpen;
         private SecureString _password;
         private string _errorMessage;
         private bool _isViewVisible = true;
@@ -73,22 +74,39 @@ namespace Recipe_App_WPF.ViewModel
                 OnPropertyChanged(nameof(IsViewVisible));
             }
         }
+        public bool IsSignUpPopupOpen
+        {
+            get { return _isSignUpPopupOpen; }
+            set
+            {
+                if (_isSignUpPopupOpen == value) return;
+                _isSignUpPopupOpen = value;
+                OnPropertyChanged(nameof(IsSignUpPopupOpen));
+            }
+        }
         // -> Command
         public ICommand LoginCommand { get; }
-        //public ICommand RecoverPasswordCommand { get; }
-        //public ICommand ShowPasswordCommand { get; }
-        //public ICommand RememberPasswordCommand { get; }
+        public ICommand OpenSignUpCommand { get; }
 
         public LoginViewModel()
         {
 
-            LoginCommand = new ViewModelCommand(ExecuteLogicCommand, CanExecuteLoginCommand);
+            LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
+            OpenSignUpCommand = new ViewModelCommand(ExecuteOpenSignUpCommand);
+        }
+
+        private void ExecuteOpenSignUpCommand(object obj)
+        {
+            IsSignUpPopupOpen = true;
         }
 
         private bool CanExecuteLoginCommand(object obj)
         {
             bool validData;
-            if (string.IsNullOrWhiteSpace(Email) || Email.Length < 3 || Password == null || Password.Length < 3)
+            if (string.IsNullOrWhiteSpace(Email)
+                || Email.Length < 3
+                || Password == null
+                || Password.Length < 5)
                 validData = false;
             else
                 validData = true;
@@ -96,7 +114,7 @@ namespace Recipe_App_WPF.ViewModel
             return validData;
         }
 
-        private async void ExecuteLogicCommand(object obj)
+        private async void ExecuteLoginCommand(object obj)
         {
             using (var client = new HttpClient())
             {
