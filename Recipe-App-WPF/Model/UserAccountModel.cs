@@ -10,6 +10,5 @@ namespace Recipe_App_WPF.Model
     {
         public string Username { get; set; }
         public string DisplayName { get; set; }
-        public byte[] ProfilePictures { get; set; }
     }
 }

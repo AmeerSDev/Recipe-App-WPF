@@ -15,6 +15,18 @@
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
+
+    <Window.Resources>
+        
+        <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+            <local:HomeView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:CustomersViewModel}">
+            <local:CustomerView/>
+        </DataTemplate>
+        
+    </Window.Resources>
     <Border CornerRadius="10"
             BorderThickness="2">
 
@@ -67,7 +79,9 @@
                     <!--Menu Buttons-->
                         <!--Dashboard-->
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource sideMenuIconColor}">
+                                 Tag="{StaticResource sideMenuIconColor}"
+                                 IsChecked="True"
+                                 Command="{Binding ShowHomeViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}"/>
@@ -75,7 +89,8 @@
                     </RadioButton>
                     
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource sideMenuIconColor}">
+                                 Tag="{StaticResource sideMenuIconColor}"
+                                 Command="{Binding ShowCustomerViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="UserGroup" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Customers" Style="{StaticResource menuButtonText}"/>
@@ -200,13 +215,13 @@
                                     Orientation="Horizontal"
                                     VerticalAlignment="Center">
 
-                            <fa:IconImage Icon="Home"
+                            <fa:IconImage Icon="{Binding Icon}"
                                           Height="20"
                                           Width="20"
                                           Foreground="{StaticResource sideMenuIconColor}"
                                           Margin="35,0,10,0"/>
                             
-                            <TextBlock Text="Dashboard"
+                            <TextBlock Text="{Binding Caption}"
                                        Foreground="{StaticResource textBoxColor}"
                                        FontSize="16"
                                        FontFamily="Rockwell"
@@ -223,7 +238,10 @@
                                     Margin="0,0,10,0">
                             <Button Style="{StaticResource iconButton}"
                                     Tag="{StaticResource sideMenuIconColor}">
-                                <fa:IconImage Icon="AngleDown" Style="{StaticResource iconButtonIcon}"/>
+                                <fa:IconImage Icon="AngleDown"
+                                              Height="12"
+                                              Width="12"
+                                              Style="{StaticResource iconButtonIcon}"/>
                             </Button>
 
                             <TextBlock Text="{Binding CurrentUserAccount.DisplayName}"
@@ -238,8 +256,28 @@
                                 </Rectangle.Fill>
                             </Rectangle>
 
+                            <Button Style="{StaticResource iconButton}"
+                                    Tag="{StaticResource sideMenuIconColor}">
+                                <fa:IconImage Icon="Clock" Style="{StaticResource iconButtonIcon}"/>
+                            </Button>
+
+                            <Button Style="{StaticResource iconButton}"
+                                    Tag="{StaticResource sideMenuIconColor}">
+                                <fa:IconImage Icon="Envelope" Style="{StaticResource iconButtonIcon}"/>
+                            </Button>
+
+                            <Button Style="{StaticResource iconButton}"
+                                    Tag="{StaticResource sideMenuIconColor}">
+                                <fa:IconImage Icon="Bell" Style="{StaticResource iconButtonIcon}"/>
+                            </Button>
+
                         </StackPanel>
                     </Grid>
+
+                    <!--Content section / Child views Measures-->
+                    <ContentControl Content="{Binding CurrentChildView}"
+                                Grid.Row="2"
+                                Margin="25"/>
 
                 </Grid>
          </Border>
