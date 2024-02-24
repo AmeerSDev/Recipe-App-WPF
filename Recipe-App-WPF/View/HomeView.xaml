@@ -101,6 +101,13 @@
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Grid.Row="2" HorizontalAlignment="Center" Width="300" VerticalAlignment="Top">
+                <TextBlock Text="{Binding ProfileDetailsMessage}"
+                               Foreground="DarkOliveGreen"
+                               FontSize="10"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               HorizontalAlignment="Left"
+                               Margin="0,0,0,0"/>
                 <TextBlock Text="Change Password"
                                Foreground="{StaticResource textBoxColor}"
                                FontSize="10"
@@ -112,7 +119,7 @@
                 <customcontrols:BindablePasswordBox Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                         Height="25">
                 </customcontrols:BindablePasswordBox>
-                
+
                 <Button x:Name="btnSaveProfileDetails"
                         Command="{Binding SaveProfileDetailsCommand}"
                         BorderThickness="0"
@@ -120,7 +127,7 @@
                         FontSize="10"
                         FontFamily="Montserrat"
                         Grid.Column="2"
-                        Margin="0,25,0,0">
+                        Margin="0,10,0,0">
 
                     <Button.Style>
                         <Style TargetType="Button">
@@ -147,13 +154,6 @@
 
                 </Button>
 
-                <TextBlock Text="{Binding ProfileDetailsMessage}"
-                               Foreground="DarkOliveGreen"
-                               FontSize="10"
-                               FontWeight="Medium"
-                               FontFamily="Montserrat"
-                               HorizontalAlignment="Left"
-                               Margin="0,5,0,0"/>
             </StackPanel>
         </Grid>
 
