@@ -15,6 +15,14 @@
         <viewModel:SignUpViewModel/>
     </UserControl.DataContext>
 
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </UserControl.Resources>
+
+    <UserControl.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
+    </UserControl.Visibility>
+
     <Border 
             BorderThickness="2">
 
@@ -43,8 +51,40 @@
                             Orientation="Horizontal"
                             FlowDirection="RightToLeft"
                             Background="Transparent"
-                            Margin="0,0,5,0"
->
+                            Margin="0,0,5,0">
+
+                <!--<Button x:Name="btnClose"
+                        BorderThickness="0"
+                        Foreground="White"
+                        FontSize="16"
+                        FontFamily="Montserrat"
+                        Grid.Column="2"
+                        Command="{Binding CloseSignUpFormCommand}">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="{StaticResource buttonColor}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource buttonHoverColor}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border Width="20" Height="20"
+                                    CornerRadius="5"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter Content="x"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>-->
+
             </StackPanel>
             <StackPanel Orientation="Vertical"
                         Grid.Row="1"

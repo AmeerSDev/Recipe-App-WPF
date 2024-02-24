@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="Extensions\SecureStringExtensions.cs" />
     <Compile Include="Model\LoginModel.cs" />
+    <Compile Include="Model\ProfileDetailsModel.cs" />
     <Compile Include="Model\SignUpModel.cs" />
     <Compile Include="Model\UserAccountModel.cs" />
     <Compile Include="ViewModel\CustomersViewModel.cs" />

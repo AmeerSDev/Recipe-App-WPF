@@ -98,6 +98,9 @@ namespace Recipe_App_WPF.ViewModel
         private void ExecuteOpenSignUpCommand(object obj)
         {
             IsSignUpPopupOpen = true;
+            var signUpViewModel = new SignUpViewModel();
+            signUpViewModel.IsViewVisible = true;
+
         }
 
         private bool CanExecuteLoginCommand(object obj)

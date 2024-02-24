@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Recipe_App_WPF.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,12 +24,6 @@ namespace Recipe_App_WPF.View
         public SignUpView()
         {
             InitializeComponent();
-            this.Visibility = Visibility.Visible;
-        }
-
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            this.Visibility = Visibility.Collapsed;
         }
     }
 }

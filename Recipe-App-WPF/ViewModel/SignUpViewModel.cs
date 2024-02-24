@@ -15,6 +15,7 @@ namespace Recipe_App_WPF.ViewModel
     public class SignUpViewModel : ViewModelBase
     {
         private SignUpModel _signUpModel;
+        private bool _isViewVisible;
 
         public string Name
         {
@@ -68,11 +69,32 @@ namespace Recipe_App_WPF.ViewModel
             }
         }
 
+        public bool IsViewVisible
+        {
+            get
+            {
+                return _isViewVisible;
+            }
+            set
+            {
+                _isViewVisible = value;
+                OnPropertyChanged(nameof(IsViewVisible));
+            }
+        }
+
         public ICommand RegisterCommand { get; }
+        public ICommand CloseSignUpFormCommand { get; }
         public SignUpViewModel()
         {
             _signUpModel = new SignUpModel();
+            IsViewVisible = true;
             RegisterCommand = new ViewModelCommand(ExecuteRegisterCommand, CanExecuteRegisterCommand);
+            CloseSignUpFormCommand = new ViewModelCommand(ExecuteCloseSignUpFormCommand);
+        }
+
+        private void ExecuteCloseSignUpFormCommand(object obj)
+        {
+          IsViewVisible = false;
         }
 
         private bool CanExecuteRegisterCommand(object obj)

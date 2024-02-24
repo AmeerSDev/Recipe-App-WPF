@@ -4,9 +4,158 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Recipe_App_WPF.View"
+             xmlns:viewModel="clr-namespace:Recipe_App_WPF.ViewModel"
+             xmlns:customcontrols="clr-namespace:Recipe_App_WPF.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             d:DesignHeight="450" d:DesignWidth="450">
+    
+    <UserControl.DataContext>
+        <viewModel:HomeViewModel/>
+    </UserControl.DataContext>
+    
+    <Border BorderThickness="2">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"></GradientStop>
+                <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.75"></GradientStop>
+                <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"></GradientStop>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1, 1.5">
+                <GradientStop Color="{StaticResource winBorderColor3}" Offset="0"/>
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="164"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Profile"
+                       Grid.Row="0"
+                       Margin="12,12,0,0"
+                       FontSize="15"
+                       FontFamily="Rockwell"
+                       FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+                <Rectangle Grid.Column="0" Height="100" Width="100" VerticalAlignment="Center">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/Images/chef-hat.png" Stretch="UniformToFill"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <StackPanel Orientation="Vertical" Grid.Column="1" Width="300" VerticalAlignment="Center" Margin="5,0,0,20">
+                    <TextBlock Text="Name"
+                               Foreground="{StaticResource textBoxColor}"
+                               FontSize="10"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               HorizontalAlignment="Left"
+                               Margin="0,35,0,0"/>
+                    <TextBox x:Name="txtName"
+                               Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="10"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               Foreground="{StaticResource textBoxColor}"
+                               CaretBrush="LightGray"
+                               BorderBrush="Black"
+                               Height="25"
+                               BorderThickness="2,2,2,2">
+                        <TextBox.Background>
+                            <SolidColorBrush Color="Transparent"/>
+                        </TextBox.Background>
+                    </TextBox>
+
+                    <TextBlock Text="Email"
+                               Foreground="{StaticResource textBoxColor}"
+                               FontSize="10"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               HorizontalAlignment="Left"
+                               Margin="0,35,0,0"/>
+                    <TextBox x:Name="txtEmail"
+                               Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+                               FontSize="10"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               Foreground="{StaticResource textBoxColor}"
+                               CaretBrush="LightGray"
+                               BorderBrush="Black"
+                                Height="25"
+                               BorderThickness="2,2,2,2">
+                        <TextBox.Background>
+                            <SolidColorBrush Color="Transparent"/>
+                        </TextBox.Background>
+                    </TextBox>
+                </StackPanel>
+
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Grid.Row="2" HorizontalAlignment="Center" Width="300" VerticalAlignment="Top">
+                <TextBlock Text="Change Password"
+                               Foreground="{StaticResource textBoxColor}"
+                               FontSize="10"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               HorizontalAlignment="Left"
+                               Margin="0,35,0,0"/>
+
+                <customcontrols:BindablePasswordBox Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        Height="25">
+                </customcontrols:BindablePasswordBox>
+                
+                <Button x:Name="btnSaveProfileDetails"
+                        Command="{Binding SaveProfileDetailsCommand}"
+                        BorderThickness="0"
+                        Foreground="White"
+                        FontSize="10"
+                        FontFamily="Montserrat"
+                        Grid.Column="2"
+                        Margin="0,25,0,0">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="DarkSeaGreen"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="DarkOliveGreen"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border Width="150" Height="40"
+                                    CornerRadius="20"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter Content="Save Profile Details"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
+
+                <TextBlock Text="{Binding ProfileDetailsMessage}"
+                               Foreground="DarkOliveGreen"
+                               FontSize="10"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               HorizontalAlignment="Left"
+                               Margin="0,5,0,0"/>
+            </StackPanel>
+        </Grid>
+
+    </Border>
 </UserControl>
