@@ -65,6 +65,7 @@
     <Compile Include="CustomControls\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\HttpClientExtentions.cs" />
     <Compile Include="Extensions\SecureStringExtensions.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\ProfileDetailsModel.cs" />

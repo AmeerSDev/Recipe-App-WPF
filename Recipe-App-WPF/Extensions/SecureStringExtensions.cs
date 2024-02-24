@@ -12,15 +12,28 @@ namespace Recipe_App_WPF.Extensions
     {
         public static string ToUnsecuredString(this SecureString secureString)
         {
-            IntPtr unmanagedString = IntPtr.Zero;
+            if (secureString == null)
+            {
+                // If SecureString is null, return an empty string
+                return string.Empty;
+            }
+
+            if (secureString.Length == 0)
+            {
+                // If SecureString is empty, return an empty string
+                return string.Empty;
+            }
+
+            IntPtr ptr = IntPtr.Zero;
+
             try
             {
-                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(secureString);
-                return Marshal.PtrToStringUni(unmanagedString);
+                ptr = Marshal.SecureStringToGlobalAllocUnicode(secureString);
+                return Marshal.PtrToStringUni(ptr);
             }
             finally
             {
-                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
+                Marshal.ZeroFreeGlobalAllocUnicode(ptr);
             }
         }
     }
