@@ -72,7 +72,6 @@ namespace Recipe_App_WPF.ViewModel
         public MainViewModel()
         {
             _loginModel = LoginModel.GetInstance();
-            _loginModel.UserLoggedIn += LoginModel_UserLoggedIn;
             //Initialze commands
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
             ShowCustomerViewCommand = new ViewModelCommand(ExecuteShowCustomerViewCommand);
@@ -80,7 +79,8 @@ namespace Recipe_App_WPF.ViewModel
             //Default view
             ExecuteShowHomeViewCommand(null);
 
-            LoadCurrentUserData();
+            if(_loginModel.LoggedIn)
+                LoadCurrentUserData();
         }
 
         private void ExecuteShowCustomerViewCommand(object obj)
@@ -113,8 +113,8 @@ namespace Recipe_App_WPF.ViewModel
                     var tokenResponse = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseContent);
                     CurrentUserAccount = new UserAccountModel()
                     {
-                        Username = tokenResponse["email"],
-                        DisplayName = $"Welcome {tokenResponse["name"]} "
+                        Email = tokenResponse["email"],
+                        Name = $"Welcome {tokenResponse["name"]} "
 
                     };
                 }
@@ -124,11 +124,6 @@ namespace Recipe_App_WPF.ViewModel
                     //Application.Current.Shutdown();
                 }
             }
-        }
-
-        private void LoginModel_UserLoggedIn(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }

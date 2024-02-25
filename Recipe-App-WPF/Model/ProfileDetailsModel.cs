@@ -9,9 +9,16 @@ namespace Recipe_App_WPF.Model
 {
     public class ProfileDetailsModel
     {
-        public string Name { get; set; }
-        public string Email{ get; set; }
+        //public string Name { get; set; }
+        //public string Email{ get; set; }
+        //public SecureString Password { get; set; }
+        public UserAccountModel UserAccountPofileDetails { get; set; }
+
         public string ProfileDetailsMessage { get; set; }
-        public SecureString Password { get; set; }
+
+        public ProfileDetailsModel()
+        {
+            UserAccountPofileDetails = new UserAccountModel();
+        }
     }
 }

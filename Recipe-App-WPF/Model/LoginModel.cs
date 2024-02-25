@@ -10,13 +10,13 @@ namespace Recipe_App_WPF.Model
     public class LoginModel
     {
         private static LoginModel _instance;
-        private static ProfileDetailsModel _currentLoggedInAccount;
+        private static UserAccountModel _currentLoggedInAccount;
         public static LoginModel GetInstance()
         {
             if (_instance == null)
             {
                 _instance = new LoginModel();
-                _currentLoggedInAccount = new ProfileDetailsModel();
+                _currentLoggedInAccount = new UserAccountModel();
             }
             return _instance;
         }
@@ -25,7 +25,7 @@ namespace Recipe_App_WPF.Model
 
         public string Token { get; set; }
 
-        public ProfileDetailsModel CurrentLoggedInAccount
+        public UserAccountModel CurrentLoggedInAccount
         {
             get
             {
@@ -37,13 +37,6 @@ namespace Recipe_App_WPF.Model
             }
         }
 
-
-        public event EventHandler UserLoggedIn;
-
-        public void RaiseUserLoggedIn()
-        {
-            UserLoggedIn?.Invoke(this, EventArgs.Empty);
-        }
     }
 
 }

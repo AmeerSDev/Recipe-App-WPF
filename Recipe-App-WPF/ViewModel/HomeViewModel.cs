@@ -23,12 +23,12 @@ namespace Recipe_App_WPF.ViewModel
         {
             get
             {
-                return _profileDetailsModel.Name;
+                return _profileDetailsModel.UserAccountPofileDetails.Name;
             }
 
             set
             {
-                _profileDetailsModel.Name = value;
+                _profileDetailsModel.UserAccountPofileDetails.Name = value;
                 OnPropertyChanged(nameof(Name));
             }
         }
@@ -36,11 +36,11 @@ namespace Recipe_App_WPF.ViewModel
         {
             get
             {
-                return _profileDetailsModel.Email;
+                return _profileDetailsModel.UserAccountPofileDetails.Email;
             }
             set
             {
-                _profileDetailsModel.Email = value;
+                _profileDetailsModel.UserAccountPofileDetails.Email = value;
                 OnPropertyChanged(nameof(Email));
             }
         }
@@ -49,11 +49,11 @@ namespace Recipe_App_WPF.ViewModel
         {
             get
             {
-                return _profileDetailsModel.Password;
+                return _profileDetailsModel.UserAccountPofileDetails.Password;
             }
             set
             {
-                _profileDetailsModel.Password = value;
+                _profileDetailsModel.UserAccountPofileDetails.Password = value;
                 OnPropertyChanged(nameof(Password));
             }
         }

@@ -244,7 +244,7 @@
                                               Style="{StaticResource iconButtonIcon}"/>
                             </Button>
 
-                            <TextBlock Text="{Binding CurrentUserAccount.DisplayName}"
+                            <TextBlock Text="{Binding CurrentUserAccount.Name}"
                                        Foreground="{StaticResource textBoxColor}"
                                        FontFamily="Rockwell"
                                        FontSize="12"

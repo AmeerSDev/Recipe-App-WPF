@@ -9,9 +9,13 @@ namespace Recipe_App_WPF.Model
 {
     public class SignUpModel
     {
-        public string Name { get; set; }
-        public string Email{ get; set; }
+        public UserAccountModel SignUpUserAccount { get; set; }
+
         public string RegisterMessage { get; set; }
-        public SecureString Password { get; set; }
+
+        public SignUpModel()
+        {
+            SignUpUserAccount = new UserAccountModel();
+        }
     }
 }

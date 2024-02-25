@@ -22,16 +22,17 @@ namespace Recipe_App_WPF.ViewModel
         private SecureString _password;
         private string _errorMessage;
         private bool _isViewVisible = true;
+        private UserAccountModel _loginUserAccount;
 
         public string Email
         {
             get
             {
-                return _email;
+                return _loginUserAccount.Email;
             }
             set
             {
-                _email = value;
+                _loginUserAccount.Email = value;
                 OnPropertyChanged(nameof(Email));
             }
         }
@@ -40,11 +41,11 @@ namespace Recipe_App_WPF.ViewModel
         {
             get
             {
-                return _password;
+                return _loginUserAccount.Password;
             }
             set
             {
-                _password = value;
+                _loginUserAccount.Password = value;
                 OnPropertyChanged(nameof(Password));
             }
         }
@@ -90,7 +91,7 @@ namespace Recipe_App_WPF.ViewModel
 
         public LoginViewModel()
         {
-
+            _loginUserAccount = new UserAccountModel();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
             OpenSignUpCommand = new ViewModelCommand(ExecuteOpenSignUpCommand);
         }
@@ -140,7 +141,7 @@ namespace Recipe_App_WPF.ViewModel
                     // Update LoginModel with the token and raise event
                     LoginModel.GetInstance().Token = token;
                     LoginModel.GetInstance().LoggedIn = true;
-                    LoginModel.GetInstance().RaiseUserLoggedIn();
+                    LoginModel.GetInstance().CurrentLoggedInAccount = _loginUserAccount;
                     IsViewVisible = false;
                 }
                 else

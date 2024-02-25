@@ -21,12 +21,12 @@ namespace Recipe_App_WPF.ViewModel
         {
             get
             {
-                return _signUpModel.Name;
+                return _signUpModel.SignUpUserAccount.Name;
             }
 
             set
             {
-                _signUpModel.Name = value;
+                _signUpModel.SignUpUserAccount.Name = value;
                 OnPropertyChanged(nameof(Name));
             }
         }
@@ -34,11 +34,11 @@ namespace Recipe_App_WPF.ViewModel
         {
             get
             {
-                return _signUpModel.Email;
+                return _signUpModel.SignUpUserAccount.Email;
             }
             set
             {
-                _signUpModel.Email = value;
+                _signUpModel.SignUpUserAccount.Email = value;
                 OnPropertyChanged(nameof(Email));
             }
         }
@@ -47,11 +47,11 @@ namespace Recipe_App_WPF.ViewModel
         {
             get
             {
-                return _signUpModel.Password;
+                return _signUpModel.SignUpUserAccount.Password;
             }
             set
             {
-                _signUpModel.Password = value;
+                _signUpModel.SignUpUserAccount.Password = value;
                 OnPropertyChanged(nameof(Password));
             }
         }
