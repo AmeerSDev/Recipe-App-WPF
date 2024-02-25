@@ -18,7 +18,6 @@
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"></GradientStop>
                 <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.75"></GradientStop>
-                <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"></GradientStop>
             </LinearGradientBrush>
         </Border.BorderBrush>
 
@@ -62,6 +61,7 @@
                                Margin="0,35,0,0"/>
                     <TextBox x:Name="txtName"
                                Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                               VerticalContentAlignment="Center"
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -84,6 +84,7 @@
                                Margin="0,35,0,0"/>
                     <TextBox x:Name="txtEmail"
                                Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+                               VerticalContentAlignment="Center"
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -117,7 +118,8 @@
                                Margin="0,35,0,0"/>
 
                 <customcontrols:BindablePasswordBox Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                        Height="25">
+                                                    Height="25"
+                                                    VerticalContentAlignment="Center">
                 </customcontrols:BindablePasswordBox>
 
                 <Button x:Name="btnSaveProfileDetails"
