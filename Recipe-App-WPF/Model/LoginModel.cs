@@ -23,7 +23,7 @@ namespace Recipe_App_WPF.Model
 
         public bool LoggedIn { get; set; }
 
-        public string Token { get; set; }
+        public SecureString Token { get; set; }
 
         public UserAccountModel CurrentLoggedInAccount
         {

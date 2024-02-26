@@ -139,7 +139,7 @@ namespace Recipe_App_WPF.ViewModel
                     string token = tokenResponse["token"];
 
                     // Update LoginModel with the token and raise event
-                    LoginModel.GetInstance().Token = token;
+                    LoginModel.GetInstance().Token = token.ToSecureString();
                     LoginModel.GetInstance().LoggedIn = true;
                     LoginModel.GetInstance().CurrentLoggedInAccount = _loginUserAccount;
                     IsViewVisible = false;

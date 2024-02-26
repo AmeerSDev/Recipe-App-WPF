@@ -101,7 +101,12 @@
 
             </StackPanel>
 
-            <StackPanel Orientation="Vertical" Grid.Row="2" HorizontalAlignment="Center" Width="300" VerticalAlignment="Top">
+            <StackPanel Orientation="Vertical"
+                        Grid.Row="2"
+                        HorizontalAlignment="Left"
+                        Width="300"
+                        Margin="107,0,0,0"
+                        VerticalAlignment="Top">
                 <TextBlock Text="{Binding ProfileDetailsMessage}"
                                Foreground="DarkOliveGreen"
                                FontSize="10"

@@ -104,7 +104,7 @@ namespace Recipe_App_WPF.ViewModel
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", _loginModel.Token);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
                 var response = await client.GetAsync("http://localhost:8000/api/user/me/");
 
                  if (response.IsSuccessStatusCode)

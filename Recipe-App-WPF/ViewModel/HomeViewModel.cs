@@ -114,7 +114,8 @@ namespace Recipe_App_WPF.ViewModel
 
             using (HttpClient client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", _loginModel.Token);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", 
+                                                                                            SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
 
                 // Create StringContent with JSON payload
                 var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");

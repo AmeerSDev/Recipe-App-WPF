@@ -36,6 +36,24 @@ namespace Recipe_App_WPF.Extensions
                 Marshal.ZeroFreeGlobalAllocUnicode(ptr);
             }
         }
+
+        public static SecureString ToSecureString(this string value)
+        {
+            SecureString secureString = new SecureString();
+
+            if (!string.IsNullOrEmpty(value))
+            {
+                foreach (char c in value)
+                {
+                    secureString.AppendChar(c);
+                }
+            }
+
+            // Make the SecureString read-only to enhance security
+            secureString.MakeReadOnly();
+
+            return secureString;
+        }
     }
 
 }
