@@ -74,7 +74,7 @@ namespace Recipe_App_WPF.ViewModel
             _loginModel = LoginModel.GetInstance();
             //Initialze commands
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
-            ShowCustomerViewCommand = new ViewModelCommand(ExecuteShowCustomerViewCommand);
+            ShowRecipesViewCommand = new ViewModelCommand(ExecuteRecipesViewCommand);
 
             //Default view
             ExecuteShowHomeViewCommand(null);
@@ -83,12 +83,6 @@ namespace Recipe_App_WPF.ViewModel
                 LoadCurrentUserData();
         }
 
-        private void ExecuteShowCustomerViewCommand(object obj)
-        {
-            CurrentChildView = new CustomersViewModel();
-            Caption = "Customers";
-            Icon = IconChar.UserGroup;
-        }
 
         private void ExecuteShowHomeViewCommand(object obj)
         {
@@ -97,9 +91,16 @@ namespace Recipe_App_WPF.ViewModel
             Icon = IconChar.Home;
         }
 
+        private void ExecuteRecipesViewCommand(object obj)
+        {
+            CurrentChildView = new RecipesViewModel();
+            Caption = "Recipes";
+            Icon = IconChar.BowlFood;
+        }
+
         //--> Commands
         public ICommand ShowHomeViewCommand { get; }
-        public ICommand ShowCustomerViewCommand { get; }
+        public ICommand ShowRecipesViewCommand { get; }
         private async void LoadCurrentUserData()
         {
             using (var client = new HttpClient())

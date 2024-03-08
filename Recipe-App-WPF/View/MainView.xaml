@@ -22,8 +22,8 @@
             <local:HomeView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModel:CustomersViewModel}">
-            <local:CustomerView/>
+        <DataTemplate DataType="{x:Type viewModel:RecipesViewModel}">
+            <local:RecipesView/>
         </DataTemplate>
         
     </Window.Resources>
@@ -90,10 +90,10 @@
                     
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource sideMenuIconColor}"
-                                 Command="{Binding ShowCustomerViewCommand}">
+                                 Command="{Binding ShowRecipesViewCommand}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="UserGroup" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Customers" Style="{StaticResource menuButtonText}"/>
+                            <fa:IconImage Icon="BowlFood" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Recipes" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
 

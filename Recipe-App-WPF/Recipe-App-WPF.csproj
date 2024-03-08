@@ -67,14 +67,18 @@
     </Compile>
     <Compile Include="Extensions\HttpClientExtentions.cs" />
     <Compile Include="Extensions\SecureStringExtensions.cs" />
+    <Compile Include="Model\IngredientModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\ProfileDetailsModel.cs" />
+    <Compile Include="Model\RecipeModel.cs" />
     <Compile Include="Model\SignUpModel.cs" />
+    <Compile Include="Model\TagModel.cs" />
     <Compile Include="Model\UserAccountModel.cs" />
     <Compile Include="ViewModel\CustomersViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\RecipesViewModel.cs" />
     <Compile Include="ViewModel\SignUpViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\ViewModelCommand.cs" />
@@ -89,6 +93,9 @@
     </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RecipesView.xaml.cs">
+      <DependentUpon>RecipesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SignUpView.xaml.cs">
       <DependentUpon>SignUpView.xaml</DependentUpon>
@@ -122,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RecipesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
