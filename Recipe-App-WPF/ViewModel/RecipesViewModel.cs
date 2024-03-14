@@ -1,15 +1,21 @@
-﻿using Recipe_App_WPF.Model;
+﻿using Newtonsoft.Json;
+using Recipe_App_WPF.Extensions;
+using Recipe_App_WPF.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Recipe_App_WPF.ViewModel
 {
     public class RecipesViewModel : ViewModelBase
     {
+        private LoginModel _loginModel;
         private ObservableCollection<RecipeModel> _recipes;
 
         public ObservableCollection<RecipeModel> Recipes
@@ -24,26 +30,39 @@ namespace Recipe_App_WPF.ViewModel
 
         public RecipesViewModel()
         {
-            InitializeData();
+            _loginModel = LoginModel.GetInstance();
+            Recipes = new ObservableCollection<RecipeModel>();
+
+            _ = LoadRecipesUserData();
         }
 
-        private void InitializeData()
+        private async Task LoadRecipesUserData()
         {
-            // Initialize and populate the ObservableCollection with recipe data
-            Recipes = new ObservableCollection<RecipeModel>
+            using (var client = new HttpClient())
             {
-                new RecipeModel { Title = "Pasta Carbonara",
-                                  Description = "Loreipsum Loreipsum Loreipsum",
-                                  Link="www.berlier.com",
-                                  /* Add more details */ },
-                new RecipeModel { Title = "Chicken Stir-Fry", Description = "Loreipsum Loreipsum Loreipsum", Link="www.berlier.com" /* Add more details */ },
-                new RecipeModel { Title = "Chocolate Cake", Description = "Loreipsum Loreipsum Loreipsum", Link="www.berlier.com"/* Add more details */ },
-                new RecipeModel { Title = "Chocolate Cake", Description = "Loreipsum Loreipsum Loreipsum", Link="www.berlier.com"/* Add more details */ },
-                new RecipeModel { Title = "Chocolate Cake", Description = "Loreipsum Loreipsum Loreipsum", Link="www.berlier.com"/* Add more details */ },
-                new RecipeModel { Title = "Chocolate Cake", Description = "Loreipsum Loreipsum Loreipsum", Link="www.berlier.com"/* Add more details */ },
-                new RecipeModel { Title = "Chocolate Cake", /* Add more details */ },
-                // Add more recipes as needed
-            };
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
+                var response = await client.GetAsync("http://localhost:8000/api/recipe/recipes/");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var recipesItems = JsonConvert.DeserializeObject<List<RecipeModel>>(responseContent);
+                    InitializeData(recipesItems);
+                }
+                else
+                {
+                    //MessageBox.Show("Couldn't Retrieve User Recipes!");
+                }
+            }
+        }
+
+        private void InitializeData(List<RecipeModel> responseData)
+        {
+            foreach (var dataEntry in responseData)
+            {
+                Recipes.Add(dataEntry);
+            }
         }
     }
 }
+

@@ -24,7 +24,8 @@
         </Style>
     </UserControl.Resources>
 
-    <Border BorderThickness="2">
+    <Border BorderThickness="2"
+            Background="LightYellow">
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"></GradientStop>
@@ -32,11 +33,6 @@
             </LinearGradientBrush>
         </Border.BorderBrush>
 
-        <Border.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1, 1.5">
-                <GradientStop Color="{StaticResource winBorderColor3}" Offset="0"/>
-            </LinearGradientBrush>
-        </Border.Background>
 
         <Grid>
             <Grid.RowDefinitions>
@@ -59,10 +55,18 @@
                         <StackPanel>
                             <TextBlock Text="{Binding Title}" FontWeight="Bold" />
                             <StackPanel Orientation="Vertical" Margin="10">
-                                <TextBlock Text="Description" FontWeight="Bold" />
-                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
-                                <TextBlock Text="Link" FontWeight="Bold" />
-                                <!-- Add more TextBlocks or controls for other recipe details -->
+                                <TextBlock Text="Recipe ID" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding ID}" TextWrapping="Wrap"/>
+                                <TextBlock Text="Time To Prepare" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding TimeMinutes}" TextWrapping="Wrap"/>
+                                <TextBlock Text="Price" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Price}" TextWrapping="Wrap"/>
+                                <TextBlock Text="Link" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Link}" TextWrapping="Wrap"/>
+                                <TextBlock Text="Tags" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Tags}" TextWrapping="Wrap"/>
+                                <TextBlock Text="Ingredients" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Ingredients}" TextWrapping="Wrap"/>
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>
