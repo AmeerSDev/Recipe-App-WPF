@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Recipe_App_WPF.Extensions;
+using Recipe_App_WPF.Helpers;
 using Recipe_App_WPF.Model;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace Recipe_App_WPF.ViewModel
     {
         private LoginModel _loginModel;
         private ObservableCollection<RecipeModel> _recipes;
+        private bool _IsDeleteRecipePopUpOpen;
 
         public ObservableCollection<RecipeModel> Recipes
         {
@@ -28,14 +30,40 @@ namespace Recipe_App_WPF.ViewModel
                 OnPropertyChanged(nameof(Recipes));
             }
         }
+        public bool IsDeleteRecipePopUpOpen
+        {
+            get { return _IsDeleteRecipePopUpOpen; }
+            set
+            {
+                if (_IsDeleteRecipePopUpOpen == value) return;
+                _IsDeleteRecipePopUpOpen = value;
+                OnPropertyChanged(nameof(IsDeleteRecipePopUpOpen));
+            }
+        }
 
         public ICommand RecipeSelectedCommand { get; }
+        public ICommand OpenRecipeDeleteViewCommand { get; }
         public RecipesViewModel()
         {
             _loginModel = LoginModel.GetInstance();
             Recipes = new ObservableCollection<RecipeModel>();
             _ = LoadRecipesUserData();
+            OpenRecipeDeleteViewCommand = new ViewModelCommand(ExecuteOpenRecipeDeleteViewCommand);
             //RecipeSelectedCommand = new ViewModelCommand(ExecuteRecipeSelectedCommand);
+            RecipesEventAggregator.Instance.RecipeDeleted += OnRecipeDeleted;
+        }
+
+        private async void OnRecipeDeleted(object sender, EventArgs e)
+        {
+            DeinitializeAllData();
+            await LoadRecipesUserData();
+        }
+
+        private void ExecuteOpenRecipeDeleteViewCommand(object obj)
+        {
+            IsDeleteRecipePopUpOpen = true;
+            var deleteRecipeViewModel = new DeleteRecipeViewModel();
+            deleteRecipeViewModel.IsViewVisible = true;
         }
 
         private async void ExecuteRecipeSelectedCommand(object obj)
@@ -82,8 +110,15 @@ namespace Recipe_App_WPF.ViewModel
         {
             foreach (var dataEntry in responseData)
             {
-              
+
                 Recipes.Add(dataEntry);
+            }
+        }
+        private void DeinitializeAllData()
+        {
+            for (int i = Recipes.Count - 1; i >= 0; i--)
+            {
+                Recipes.RemoveAt(i);
             }
         }
     }

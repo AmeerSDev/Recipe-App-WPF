@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="Extensions\HttpClientExtentions.cs" />
     <Compile Include="Extensions\SecureStringExtensions.cs" />
+    <Compile Include="Helpers\RecipesEventAggregator.cs" />
     <Compile Include="Model\IngredientModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\ProfileDetailsModel.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Model\TagModel.cs" />
     <Compile Include="Model\UserAccountModel.cs" />
     <Compile Include="ViewModel\CustomersViewModel.cs" />
+    <Compile Include="ViewModel\DeleteRecipeViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -84,6 +86,9 @@
     <Compile Include="ViewModel\ViewModelCommand.cs" />
     <Compile Include="View\CustomerView.xaml.cs">
       <DependentUpon>CustomerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DeleteRecipeView.xaml.cs">
+      <DependentUpon>DeleteRecipeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
@@ -117,6 +122,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CustomerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DeleteRecipeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
