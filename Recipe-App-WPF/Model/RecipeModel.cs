@@ -10,7 +10,7 @@ namespace Recipe_App_WPF.Model
     {
         public int ID { get; set; }
         public string Title { get; set; }
-        public int TimeMinutes { get; set; }
+        public int Time_Minutes { get; set; }
         public float Price { get; set; }
         public string Link { get; set; }
         public List<TagModel> Tags { get; set; }

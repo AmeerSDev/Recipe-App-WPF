@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Recipe_App_WPF.ViewModel
 {
@@ -28,12 +29,33 @@ namespace Recipe_App_WPF.ViewModel
             }
         }
 
+        public ICommand RecipeSelectedCommand { get; }
         public RecipesViewModel()
         {
             _loginModel = LoginModel.GetInstance();
             Recipes = new ObservableCollection<RecipeModel>();
-
             _ = LoadRecipesUserData();
+            //RecipeSelectedCommand = new ViewModelCommand(ExecuteRecipeSelectedCommand);
+        }
+
+        private async void ExecuteRecipeSelectedCommand(object obj)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
+                var response = await client.GetAsync($"http://localhost:8000/api/recipe/recipes/{obj}/");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var recipesItems = JsonConvert.DeserializeObject<RecipeModel>(responseContent);
+                    //InitializeData(recipesItems);
+                }
+                else
+                {
+                    //MessageBox.Show("Couldn't Retrieve User Recipes!");
+                }
+            }
         }
 
         private async Task LoadRecipesUserData()
@@ -60,6 +82,7 @@ namespace Recipe_App_WPF.ViewModel
         {
             foreach (var dataEntry in responseData)
             {
+              
                 Recipes.Add(dataEntry);
             }
         }

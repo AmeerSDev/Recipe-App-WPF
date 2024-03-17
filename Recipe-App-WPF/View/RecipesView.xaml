@@ -45,30 +45,38 @@
                        FontSize="15"
                        FontFamily="Rockwell"
                        FontWeight="Bold"/>
-            <ListBox ItemsSource="{Binding Recipes}" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <ListBox ItemsSource="{Binding Recipes}"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     Grid.Row="1"
+                     SelectionMode="Single">
                 <ListBox.Resources>
                     <!-- Apply the custom ScrollViewer style -->
-                    <Style TargetType="ScrollViewer" BasedOn="{StaticResource CustomScrollViewerStyle}" />
+                    <Style TargetType="ScrollViewer"
+                           BasedOn="{StaticResource CustomScrollViewerStyle}" />
                 </ListBox.Resources>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Title}" FontWeight="Bold" />
-                            <StackPanel Orientation="Vertical" Margin="10">
-                                <TextBlock Text="Recipe ID" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding ID}" TextWrapping="Wrap"/>
-                                <TextBlock Text="Time To Prepare" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding TimeMinutes}" TextWrapping="Wrap"/>
-                                <TextBlock Text="Price" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding Price}" TextWrapping="Wrap"/>
-                                <TextBlock Text="Link" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding Link}" TextWrapping="Wrap"/>
-                                <TextBlock Text="Tags" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding Tags}" TextWrapping="Wrap"/>
-                                <TextBlock Text="Ingredients" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding Ingredients}" TextWrapping="Wrap"/>
+                        <Button Command="{Binding DataContext.RecipeSelectedCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                CommandParameter="{Binding ID}"
+                                Background="Transparent">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Title}" FontWeight="Bold" />
+                                <StackPanel Orientation="Vertical" Margin="10">
+                                    <TextBlock Text="Recipe ID" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding ID}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="Time To Prepare" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Time_Minutes}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="Price" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Price}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="Link" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Link}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="Tags" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Tags}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="Ingredients" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Ingredients}" TextWrapping="Wrap"/>
+                                </StackPanel>
                             </StackPanel>
-                        </StackPanel>
+                        </Button>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
