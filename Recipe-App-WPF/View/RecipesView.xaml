@@ -127,12 +127,13 @@
                     </Button.Template>
 
                 </Button>
-                <Button x:Name="btnRecipeAdd"
+                <Button x:Name="btnRecipeCreate"
                         BorderThickness="0"
                         Foreground="White"
                         FontSize="16"
                         FontFamily="Montserrat"
                         HorizontalAlignment="Right"
+                        Command="{Binding OpenRecipeCreateViewCommand}"
                         Margin="0,0,15,0">
 
 
@@ -160,7 +161,10 @@
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
-
+                 <Popup x:Name="createRecipePopUp" IsOpen="{Binding IsCreateRecipePopUpOpen}" StaysOpen="False"
+                               PlacementTarget="{Binding ElementName=btnRecipeCreate}" Placement="Center" HorizontalOffset="-50" VerticalOffset="130">
+                        <local:CreateRecipeView />
+                    </Popup>
                 </Button>
             </StackPanel>
 

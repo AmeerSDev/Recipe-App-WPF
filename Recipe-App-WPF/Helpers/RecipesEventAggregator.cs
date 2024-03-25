@@ -23,7 +23,12 @@ namespace Recipe_App_WPF.Helpers
 
         public event EventHandler RecipeDeleted;
         public event EventHandler RecipeEdited;
-        public event EventHandler RecipedAdded;
+        public event EventHandler RecipeCreated;
+
+        public void PublishRecipeCreated()
+        {
+            RecipeCreated?.Invoke(this, EventArgs.Empty);
+        }
 
         public void PublishRecipeDeleted()
         {

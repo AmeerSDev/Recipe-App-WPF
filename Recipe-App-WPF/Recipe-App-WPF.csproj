@@ -75,7 +75,7 @@
     <Compile Include="Model\SignUpModel.cs" />
     <Compile Include="Model\TagModel.cs" />
     <Compile Include="Model\UserAccountModel.cs" />
-    <Compile Include="ViewModel\CustomersViewModel.cs" />
+    <Compile Include="ViewModel\CreateRecipeViewModel.cs" />
     <Compile Include="ViewModel\DeleteRecipeViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
@@ -84,8 +84,8 @@
     <Compile Include="ViewModel\SignUpViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\ViewModelCommand.cs" />
-    <Compile Include="View\CustomerView.xaml.cs">
-      <DependentUpon>CustomerView.xaml</DependentUpon>
+    <Compile Include="View\CreateRecipeView.xaml.cs">
+      <DependentUpon>CreateRecipeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DeleteRecipeView.xaml.cs">
       <DependentUpon>DeleteRecipeView.xaml</DependentUpon>
@@ -121,7 +121,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CustomerView.xaml">
+    <Page Include="View\CreateRecipeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

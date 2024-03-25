@@ -20,6 +20,7 @@ namespace Recipe_App_WPF.ViewModel
         private LoginModel _loginModel;
         private ObservableCollection<RecipeModel> _recipes;
         private bool _IsDeleteRecipePopUpOpen;
+        private bool _IsCreateRecipePopUpOpen;
 
         public ObservableCollection<RecipeModel> Recipes
         {
@@ -41,22 +42,47 @@ namespace Recipe_App_WPF.ViewModel
             }
         }
 
+        public bool IsCreateRecipePopUpOpen
+        {
+            get { return _IsCreateRecipePopUpOpen; }
+            set
+            {
+                if (_IsCreateRecipePopUpOpen == value) return;
+                _IsCreateRecipePopUpOpen = value;
+                OnPropertyChanged(nameof(IsCreateRecipePopUpOpen));
+            }
+        }
+
         public ICommand RecipeSelectedCommand { get; }
         public ICommand OpenRecipeDeleteViewCommand { get; }
+        public ICommand OpenRecipeCreateViewCommand { get; }
         public RecipesViewModel()
         {
             _loginModel = LoginModel.GetInstance();
             Recipes = new ObservableCollection<RecipeModel>();
             _ = LoadRecipesUserData();
             OpenRecipeDeleteViewCommand = new ViewModelCommand(ExecuteOpenRecipeDeleteViewCommand);
-            //RecipeSelectedCommand = new ViewModelCommand(ExecuteRecipeSelectedCommand);
+            OpenRecipeCreateViewCommand = new ViewModelCommand(ExecuteOpenRecipeCreateViewCommand);
             RecipesEventAggregator.Instance.RecipeDeleted += OnRecipeDeleted;
+            RecipesEventAggregator.Instance.RecipeCreated += OnRecipeCreated;
+            //RecipeSelectedCommand = new ViewModelCommand(ExecuteRecipeSelectedCommand);
+        }
+
+        private void ExecuteOpenRecipeCreateViewCommand(object obj)
+        {
+            IsCreateRecipePopUpOpen = true;
+            var createRecipeViewModel = new CreateRecipeViewModel();
+            createRecipeViewModel.IsViewVisible = true;
         }
 
         private async void OnRecipeDeleted(object sender, EventArgs e)
         {
-            DeinitializeAllData();
-            await LoadRecipesUserData();
+            await RefreshRecipesList();
+        }
+
+        private async void OnRecipeCreated(object sender, EventArgs e)
+        {
+            await RefreshRecipesList();
         }
 
         private void ExecuteOpenRecipeDeleteViewCommand(object obj)
@@ -106,6 +132,12 @@ namespace Recipe_App_WPF.ViewModel
             }
         }
 
+        private async Task RefreshRecipesList()
+        {
+            DeinitializeAllData();
+            await LoadRecipesUserData();
+
+        }
         private void InitializeData(List<RecipeModel> responseData)
         {
             foreach (var dataEntry in responseData)

@@ -17,5 +17,11 @@ namespace Recipe_App_WPF.Model
         public List<IngredientModel> Ingredients { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
+
+        //public RecipeModel()
+        //{
+        //    Tags = new List<TagModel>();
+        //    Ingredients = new List<IngredientModel>();
+        //}
     }
 }
