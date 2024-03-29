@@ -18,6 +18,8 @@ namespace Recipe_App_WPF.ViewModel
     {
         private LoginModel _loginModel;
         private RecipeModel recipeModel;
+        private string tagsNames;
+        private string ingredientsNames;
         private bool _isViewVisible;
 
         public bool IsViewVisible
@@ -46,6 +48,31 @@ namespace Recipe_App_WPF.ViewModel
             }
         }
 
+        public string TagsNames
+        {
+            get
+            {
+                return tagsNames;
+            }
+            set
+            {
+                tagsNames = value;
+                OnPropertyChanged(nameof(TagsNames));
+            }
+        }
+
+        public string IgredientsNames
+        {
+            get
+            {
+                return ingredientsNames;
+            }
+            set
+            {
+                ingredientsNames = value;
+                OnPropertyChanged(nameof(IgredientsNames));
+            }
+        }
 
 
         public ICommand CreateRecipeCommand { get; }
@@ -81,8 +108,8 @@ namespace Recipe_App_WPF.ViewModel
                     { "time_minutes", recipeModel.Time_Minutes},
                     { "link", recipeModel.Link},
                     { "price", recipeModel.Price.ToString()},
-                    { "tags",  new List<object>() },
-                    { "ingredients", new List<object>()},
+                    { "tags", _NestedRecipeObjectToJsonObject(tagsNames) },
+                    { "ingredients", _NestedRecipeObjectToJsonObject(ingredientsNames)},
                     { "description", recipeModel.Description},
                     {"image", null }
                 };
@@ -102,6 +129,35 @@ namespace Recipe_App_WPF.ViewModel
                     Debug.WriteLine(" * Something went wrong upon recipe creation");
                 }
             }
+        }
+
+        private List<Dictionary<string, object>> _NestedRecipeObjectToJsonObject(string concatedObjectsNames)
+        {
+            if (string.IsNullOrEmpty(concatedObjectsNames))
+            {
+                return new List<Dictionary<string, object>>(); // Return an empty list
+            }
+            else
+            {
+                var nestedRecipeObjects = new List<Dictionary<string, object>>();
+
+                // Split the comma-separated string into individual tags
+                string[] objectsNamesArray = concatedObjectsNames.Split(',');
+
+                // Create a dictionary for each tag and add it to the list
+                foreach (var objectName in objectsNamesArray)
+                {
+                    var recipeObjectsDict = new Dictionary<string, object>
+                {
+                    { "name", objectName.Trim() }    // Trim any extra spaces around the tag name
+                };
+                    nestedRecipeObjects.Add(recipeObjectsDict);
+                }
+
+
+                return nestedRecipeObjects;
+            }
+
         }
     }
 }
