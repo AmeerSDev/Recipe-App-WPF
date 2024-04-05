@@ -142,10 +142,33 @@ namespace Recipe_App_WPF.ViewModel
         {
             foreach (var dataEntry in responseData)
             {
+                if (dataEntry.Tags != null && dataEntry.Tags.Count > 0)
+                {
+                    // If Tags list is not empty, concatenate tag names
+                    string concatenatedTags = string.Join(", ", dataEntry.Tags.Select(tag => tag.Name));
+                    // Assign the concatenated string to a property in RecipeModel, e.g., TagsAsString
+                    dataEntry.TagsNames = concatenatedTags;
+                }
 
+                if (dataEntry.Ingredients != null && dataEntry.Ingredients.Count > 0)
+                {
+                    // If Ingredients list is not empty, concatenate ingredient names
+                    string concatenatedIngredients = string.Join(", ", dataEntry.Ingredients.Select(ingredient => ingredient.Name));
+                    // Assign the concatenated string to a property in RecipeModel, e.g., IngredientsAsString
+                    dataEntry.IngredientsNames = concatenatedIngredients;
+                }
+
+                // Add the dataEntry to Recipes
                 Recipes.Add(dataEntry);
             }
         }
+        //private void InitializeData(List<RecipeModel> responseData)
+        //{
+        //    foreach (var dataEntry in responseData)
+        //    {
+        //        Recipes.Add(dataEntry);
+        //    }
+        //}
         private void DeinitializeAllData()
         {
             for (int i = Recipes.Count - 1; i >= 0; i--)

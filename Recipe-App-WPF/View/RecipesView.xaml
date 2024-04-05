@@ -194,9 +194,9 @@
                                     <TextBlock Text="Link" FontWeight="Bold"/>
                                     <TextBlock Text="{Binding Link}" TextWrapping="Wrap"/>
                                     <TextBlock Text="Tags" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding Tags}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding TagsNames}" TextWrapping="Wrap"/>
                                     <TextBlock Text="Ingredients" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding Ingredients}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding IngredientsNames}" TextWrapping="Wrap"/>
                                 </StackPanel>
                             </StackPanel>
                         </Button>
