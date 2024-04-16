@@ -149,7 +149,7 @@
                                Margin="0,35,0,0"/>
 
             <TextBox x:Name="txtTags"
-                               Text="{Binding TagsNames, UpdateSourceTrigger=PropertyChanged}"
+                               Text="{Binding RecipeModel.TagsNames, UpdateSourceTrigger=PropertyChanged}"
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -173,7 +173,7 @@
                                Margin="0,35,0,0"/>
 
             <TextBox x:Name="txtIngredients"
-                               Text="{Binding IgredientsNames, UpdateSourceTrigger=PropertyChanged}"
+                               Text="{Binding RecipeModel.IngredientsNames, UpdateSourceTrigger=PropertyChanged}"
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"

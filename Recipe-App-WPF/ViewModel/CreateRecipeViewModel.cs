@@ -48,33 +48,6 @@ namespace Recipe_App_WPF.ViewModel
             }
         }
 
-        public string TagsNames
-        {
-            get
-            {
-                return tagsNames;
-            }
-            set
-            {
-                tagsNames = value;
-                OnPropertyChanged(nameof(TagsNames));
-            }
-        }
-
-        public string IgredientsNames
-        {
-            get
-            {
-                return ingredientsNames;
-            }
-            set
-            {
-                ingredientsNames = value;
-                OnPropertyChanged(nameof(IgredientsNames));
-            }
-        }
-
-
         public ICommand CreateRecipeCommand { get; }
         public CreateRecipeViewModel()
         {

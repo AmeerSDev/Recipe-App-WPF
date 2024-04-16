@@ -162,13 +162,7 @@ namespace Recipe_App_WPF.ViewModel
                 Recipes.Add(dataEntry);
             }
         }
-        //private void InitializeData(List<RecipeModel> responseData)
-        //{
-        //    foreach (var dataEntry in responseData)
-        //    {
-        //        Recipes.Add(dataEntry);
-        //    }
-        //}
+
         private void DeinitializeAllData()
         {
             for (int i = Recipes.Count - 1; i >= 0; i--)
