@@ -21,6 +21,7 @@ namespace Recipe_App_WPF.ViewModel
         private ObservableCollection<RecipeModel> _recipes;
         private bool _IsDeleteRecipePopUpOpen;
         private bool _IsCreateRecipePopUpOpen;
+        private bool _IsEditRecipePopUpOpen;
 
         public ObservableCollection<RecipeModel> Recipes
         {
@@ -53,9 +54,21 @@ namespace Recipe_App_WPF.ViewModel
             }
         }
 
+        public bool IsEditRecipePopUpOpen
+        {
+            get { return _IsEditRecipePopUpOpen; }
+            set
+            {
+                if (_IsEditRecipePopUpOpen == value) return;
+                _IsEditRecipePopUpOpen = value;
+                OnPropertyChanged(nameof(IsEditRecipePopUpOpen));
+            }
+        }
+
         public ICommand RecipeSelectedCommand { get; }
         public ICommand OpenRecipeDeleteViewCommand { get; }
         public ICommand OpenRecipeCreateViewCommand { get; }
+        public ICommand OpenRecipeEditViewCommand { get; }
         public RecipesViewModel()
         {
             _loginModel = LoginModel.GetInstance();
@@ -63,11 +76,12 @@ namespace Recipe_App_WPF.ViewModel
             _ = LoadRecipesUserData();
             OpenRecipeDeleteViewCommand = new ViewModelCommand(ExecuteOpenRecipeDeleteViewCommand);
             OpenRecipeCreateViewCommand = new ViewModelCommand(ExecuteOpenRecipeCreateViewCommand);
+            OpenRecipeEditViewCommand = new ViewModelCommand(ExecuteOpenRecipeEditViewCommand);
             RecipesEventAggregator.Instance.RecipeDeleted += OnRecipeDeleted;
             RecipesEventAggregator.Instance.RecipeCreated += OnRecipeCreated;
+            RecipesEventAggregator.Instance.RecipeEdited += OnRecipeEdited;
             //RecipeSelectedCommand = new ViewModelCommand(ExecuteRecipeSelectedCommand);
         }
-
         private void ExecuteOpenRecipeCreateViewCommand(object obj)
         {
             IsCreateRecipePopUpOpen = true;
@@ -75,14 +89,11 @@ namespace Recipe_App_WPF.ViewModel
             createRecipeViewModel.IsViewVisible = true;
         }
 
-        private async void OnRecipeDeleted(object sender, EventArgs e)
+        private void ExecuteOpenRecipeEditViewCommand(object obj)
         {
-            await RefreshRecipesList();
-        }
-
-        private async void OnRecipeCreated(object sender, EventArgs e)
-        {
-            await RefreshRecipesList();
+            IsEditRecipePopUpOpen = true;
+            var editRecipeViewModel = new EditRecipeViewModel();
+            editRecipeViewModel.IsViewVisible = true;
         }
 
         private void ExecuteOpenRecipeDeleteViewCommand(object obj)
@@ -90,6 +101,21 @@ namespace Recipe_App_WPF.ViewModel
             IsDeleteRecipePopUpOpen = true;
             var deleteRecipeViewModel = new DeleteRecipeViewModel();
             deleteRecipeViewModel.IsViewVisible = true;
+        }
+
+        private async void OnRecipeDeleted(object sender, EventArgs e)
+        {
+            await RefreshRecipesList();
+        }
+
+        private async void OnRecipeEdited(object sender, EventArgs e)
+        {
+            await RefreshRecipesList();
+        }
+
+        private async void OnRecipeCreated(object sender, EventArgs e)
+        {
+            await RefreshRecipesList();
         }
 
         private async void ExecuteRecipeSelectedCommand(object obj)

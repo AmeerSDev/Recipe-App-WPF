@@ -98,6 +98,7 @@
                         FontSize="16"
                         FontFamily="Montserrat"
                         HorizontalAlignment="Right"
+                        Command="{Binding OpenRecipeEditViewCommand}"
                         Margin="0,0,15,0">
 
 
@@ -125,7 +126,11 @@
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
-
+                    
+                    <Popup x:Name="editRecipePopUp" IsOpen="{Binding IsEditRecipePopUpOpen}" StaysOpen="False"
+                               PlacementTarget="{Binding ElementName=btnRecipeEdit}" Placement="Center" HorizontalOffset="-80" VerticalOffset="130">
+                        <local:EditRecipeView />
+                    </Popup>
                 </Button>
                 <Button x:Name="btnRecipeCreate"
                         BorderThickness="0"
