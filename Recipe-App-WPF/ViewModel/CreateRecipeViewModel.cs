@@ -18,8 +18,6 @@ namespace Recipe_App_WPF.ViewModel
     {
         private LoginModel _loginModel;
         private RecipeModel recipeModel;
-        private string tagsNames;
-        private string ingredientsNames;
         private bool _isViewVisible;
 
         public bool IsViewVisible
@@ -81,8 +79,8 @@ namespace Recipe_App_WPF.ViewModel
                     { "time_minutes", recipeModel.Time_Minutes},
                     { "link", recipeModel.Link},
                     { "price", recipeModel.Price.ToString()},
-                    { "tags", _NestedRecipeObjectToJsonObject(tagsNames) },
-                    { "ingredients", _NestedRecipeObjectToJsonObject(ingredientsNames)},
+                    { "tags", _NestedRecipeObjectToJsonObject(recipeModel.TagsNames) },
+                    { "ingredients", _NestedRecipeObjectToJsonObject(recipeModel.IngredientsNames)},
                     { "description", recipeModel.Description},
                     {"image", null }
                 };
