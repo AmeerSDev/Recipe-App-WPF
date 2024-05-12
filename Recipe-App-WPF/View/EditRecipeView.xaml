@@ -70,7 +70,7 @@
                                Margin="0,0,0,0"
                                Padding="0,8,0,0"/>
             <Button x:Name="btnEdit"
-                        Command="{Binding EditRecipeCommand}"
+                        Command="{Binding OpenRecipeEditDetailsViewCommand}"
                         BorderThickness="0"
                         Foreground="White"
                         FontSize="10"
@@ -100,6 +100,10 @@
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
+                <Popup x:Name="editRecipePopUp" IsOpen="{Binding IsEditRecipeDetailsPopUpOpen}" StaysOpen="False"
+                               PlacementTarget="{Binding ElementName=btnEdit}" Placement="Center" HorizontalOffset="-110" VerticalOffset="130">
+                    <local:EditRecipeDetailsView />
+                </Popup>
             </Button>
         </StackPanel>
     </Border>

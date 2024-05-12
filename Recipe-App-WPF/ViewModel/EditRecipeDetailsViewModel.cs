@@ -8,26 +8,12 @@ using System.Windows.Input;
 
 namespace Recipe_App_WPF.ViewModel
 {
-    public class EditRecipeViewModel : ViewModelBase
+    public class EditRecipeDetailsViewModel : ViewModelBase
     {
-        private int recipeUniqueID;
+        private LoginModel _loginModel;
+        private RecipeModel recipeModel;
         private bool _isViewVisible;
         private bool _IsEditRecipeDetailsPopUpOpen;
-
-
-        public int RecipeUniqueID
-        {
-            get
-            {
-                return recipeUniqueID;
-            }
-
-            set
-            {
-                recipeUniqueID = value;
-                OnPropertyChanged(nameof(RecipeUniqueID));
-            }
-        }
         public bool IsViewVisible
         {
             get
@@ -41,6 +27,19 @@ namespace Recipe_App_WPF.ViewModel
             }
         }
 
+        public RecipeModel RecipeModel
+        {
+            get
+            {
+                return recipeModel;
+            }
+            set
+            {
+                recipeModel = value;
+                OnPropertyChanged(nameof(RecipeModel));
+            }
+        }
+
         public bool IsEditRecipeDetailsPopUpOpen
         {
             get { return _IsEditRecipeDetailsPopUpOpen; }
@@ -51,19 +50,19 @@ namespace Recipe_App_WPF.ViewModel
                 OnPropertyChanged(nameof(IsEditRecipeDetailsPopUpOpen));
             }
         }
-        public ICommand OpenRecipeEditDetailsViewCommand { get; }
 
-        public EditRecipeViewModel()
+        public ICommand EditRecipeDetailsCommand { get; }
+
+        public EditRecipeDetailsViewModel()
         {
             IsViewVisible = true;
-            OpenRecipeEditDetailsViewCommand = new ViewModelCommand(ExecuteOpenRecipeEditDetailsViewCommand);
+            _loginModel = LoginModel.GetInstance();
+            EditRecipeDetailsCommand = new ViewModelCommand(ExecuteEditRecipeDetailsCommand);
         }
 
-        private void ExecuteOpenRecipeEditDetailsViewCommand(object obj)
+        private void ExecuteEditRecipeDetailsCommand(object obj)
         {
-            IsEditRecipeDetailsPopUpOpen = true;
-            var editRecipeDetailsViewModel = new EditRecipeDetailsViewModel();
-            editRecipeDetailsViewModel.IsViewVisible = true;
+            throw new NotImplementedException();
         }
     }
 }
