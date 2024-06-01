@@ -141,13 +141,15 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
+                            <Border>
                                 <StackPanel Orientation="Vertical" Margin="10">
-                                    <TextBlock Text="Tag ID" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding Id}" TextWrapping="Wrap"/>
                                     <TextBlock Text="Tag Name" FontWeight="Bold"/>
                                     <TextBlock Text="{Binding Name}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="Tag ID" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Id}" TextWrapping="Wrap"/>
                                 </StackPanel>
-                            </StackPanel>
+                            </Border>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

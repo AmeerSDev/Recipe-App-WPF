@@ -68,6 +68,7 @@
     <Compile Include="Extensions\HttpClientExtentions.cs" />
     <Compile Include="Extensions\SecureStringExtensions.cs" />
     <Compile Include="Helpers\RecipesEventAggregator.cs" />
+    <Compile Include="Helpers\TagsEventAggregator.cs" />
     <Compile Include="Model\IngredientModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\ProfileDetailsModel.cs" />

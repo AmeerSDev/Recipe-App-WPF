@@ -1,8 +1,14 @@
-﻿using Recipe_App_WPF.Model;
+﻿using Newtonsoft.Json;
+using Recipe_App_WPF.Extensions;
+using Recipe_App_WPF.Helpers;
+using Recipe_App_WPF.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -56,6 +62,9 @@ namespace Recipe_App_WPF.ViewModel
             Tags = new ObservableCollection<TagModel>();
             OpenTagDeleteViewCommand = new ViewModelCommand(ExecuteOpenTagDeleteViewCommand);
             OpenTagEditViewCommand = new ViewModelCommand(ExecuteOpenTagEditViewCommand);
+            _ = LoadTagsUserData();
+            TagsEventAggregator.Instance.TagDeleted += OnTagDeleted;
+            TagsEventAggregator.Instance.TagEdited += OnTagEdited;
         }
 
         private void ExecuteOpenTagEditViewCommand(object obj)
@@ -66,6 +75,57 @@ namespace Recipe_App_WPF.ViewModel
         private void ExecuteOpenTagDeleteViewCommand(object obj)
         {
             throw new NotImplementedException();
+        }
+
+        private async void OnTagEdited(object sender, EventArgs e)
+        {
+            await RefreshTagsList();
+        }
+
+        private async void OnTagDeleted(object sender, EventArgs e)
+        {
+            await RefreshTagsList();
+        }
+
+        private async Task LoadTagsUserData()
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
+                var response = await client.GetAsync("http://localhost:8000/api/recipe/tags/");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var recipesItems = JsonConvert.DeserializeObject<List<TagModel>>(responseContent);
+                    InitializeTagsData(recipesItems);
+                }
+                else
+                {
+                    Debug.WriteLine("Couldn't Retrieve User Tags!");
+                }
+            }
+        }
+
+        private void InitializeTagsData(List<TagModel> responseData)
+        {
+            foreach (var dataEntry in responseData)
+            {
+                Tags.Add(dataEntry);
+            }
+        }
+        private async Task RefreshTagsList()
+        {
+            DeinitializeAllTagsData();
+            await LoadTagsUserData();
+
+        }
+        private void DeinitializeAllTagsData()
+        {
+            for (int i = Tags.Count - 1; i >= 0; i--)
+            {
+                Tags.RemoveAt(i);
+            }
         }
     }
 }
