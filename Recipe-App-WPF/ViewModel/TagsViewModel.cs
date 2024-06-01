@@ -28,7 +28,7 @@ namespace Recipe_App_WPF.ViewModel
             set
             {
                 _tags = value;
-                OnPropertyChanged(nameof(_tags));
+                OnPropertyChanged(nameof(Tags));
             }
         }
         public bool IsDeleteTagPopUpOpen
@@ -38,7 +38,7 @@ namespace Recipe_App_WPF.ViewModel
             {
                 if (_IsDeleteTagPopUpOpen == value) return;
                 _IsDeleteTagPopUpOpen = value;
-                OnPropertyChanged(nameof(_IsDeleteTagPopUpOpen));
+                OnPropertyChanged(nameof(IsDeleteTagPopUpOpen));
             }
         }
 
@@ -74,7 +74,9 @@ namespace Recipe_App_WPF.ViewModel
 
         private void ExecuteOpenTagDeleteViewCommand(object obj)
         {
-            throw new NotImplementedException();
+            IsDeleteTagPopUpOpen = true;
+            var deleteRecipeViewModel = new DeleteTagViewModel();
+            deleteRecipeViewModel.IsViewVisible = true;
         }
 
         private async void OnTagEdited(object sender, EventArgs e)

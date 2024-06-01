@@ -82,7 +82,7 @@
 
                     <Popup x:Name="deleteTagPopUp" IsOpen="{Binding IsDeleteTagPopUpOpen}" StaysOpen="False"
                                PlacementTarget="{Binding ElementName=btnTagDelete}" Placement="Center" HorizontalOffset="-50" VerticalOffset="130">
-                        <local:DeleteRecipeView />
+                        <local:DeleteTagView />
                     </Popup>
 
                 </Button>
