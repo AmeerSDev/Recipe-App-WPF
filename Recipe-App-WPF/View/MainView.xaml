@@ -100,43 +100,18 @@
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource sideMenuIconColor}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Truck" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Transactions" Style="{StaticResource menuButtonText}"/>
+                            <fa:IconImage Icon="Tags" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Tags" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource sideMenuIconColor}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="ShoppingBag" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Shop" Style="{StaticResource menuButtonText}"/>
+                            <fa:IconImage Icon="Carrot" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Ingredients" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
-
-                    <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource sideMenuIconColor}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Box" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Track Order" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>
-
-                    <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource sideMenuIconColor}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Wallet" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Balance" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>
-
-                    <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource sideMenuIconColor}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="PieChart" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Report" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>
-
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource sideMenuIconColor}">
                         <StackPanel Orientation="Horizontal">
