@@ -64,6 +64,7 @@ namespace Recipe_App_WPF.ViewModel
             IsEditRecipeDetailsPopUpOpen = true;
             var editRecipeDetailsViewModel = new EditRecipeDetailsViewModel();
             editRecipeDetailsViewModel.IsViewVisible = true;
+            editRecipeDetailsViewModel.SetUpCurrentRecipeToEdit(obj);
         }
     }
 }

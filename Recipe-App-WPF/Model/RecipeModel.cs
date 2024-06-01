@@ -19,6 +19,5 @@ namespace Recipe_App_WPF.Model
         public string Image { get; set; }
         public string TagsNames { get; set; }
         public string IngredientsNames { get; set; }
-
     }
 }

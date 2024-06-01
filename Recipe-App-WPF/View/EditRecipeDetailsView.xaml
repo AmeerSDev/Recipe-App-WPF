@@ -8,8 +8,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="250">
     
-        <UserControl.DataContext>
-        <viewModel:CreateRecipeViewModel/>
+    <UserControl.DataContext>
+        <viewModel:EditRecipeDetailsViewModel/>
     </UserControl.DataContext>
 
     <UserControl.Resources>
@@ -53,7 +53,7 @@
                                Margin="0,35,0,0"/>
 
                 <TextBox x:Name="txtTitle"
-                               Text="{Binding RecipeModel.Title , UpdateSourceTrigger=PropertyChanged}"
+                               Text="{Binding CurrentRecipeDetails.Title , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -77,7 +77,7 @@
                                Margin="0,35,0,0"/>
 
                 <TextBox x:Name="txtPrepTime"
-                               Text="{Binding RecipeModel.Time_Minutes , UpdateSourceTrigger=PropertyChanged}"
+                               Text="{Binding CurrentRecipeDetails.Time_Minutes , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -101,7 +101,7 @@
                                Margin="0,35,0,0"/>
 
                 <TextBox x:Name="txtPrice"
-                               Text="{Binding RecipeModel.Price , UpdateSourceTrigger=PropertyChanged}"
+                               Text="{Binding CurrentRecipeDetails.Price , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -125,7 +125,7 @@
                                Margin="0,35,0,0"/>
 
                 <TextBox x:Name="txtLink"
-                               Text="{Binding RecipeModel.Link , UpdateSourceTrigger=PropertyChanged}"
+                               Text="{Binding CurrentRecipeDetails.Link , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -149,7 +149,7 @@
                                Margin="0,35,0,0"/>
 
                 <TextBox x:Name="txtTags"
-                               Text="{Binding RecipeModel.TagsNames, UpdateSourceTrigger=PropertyChanged}"
+                               Text="{Binding CurrentRecipeDetails.TagsNames, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -173,7 +173,7 @@
                                Margin="0,35,0,0"/>
 
                 <TextBox x:Name="txtIngredients"
-                               Text="{Binding RecipeModel.IngredientsNames, UpdateSourceTrigger=PropertyChanged}"
+                               Text="{Binding CurrentRecipeDetails.IngredientsNames, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -197,7 +197,7 @@
                                Margin="0,35,0,0"/>
 
                 <TextBox x:Name="txtDescription"
-                               Text="{Binding RecipeModel.Description , UpdateSourceTrigger=PropertyChanged}"
+                               Text="{Binding CurrentRecipeDetails.Description , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                FontSize="10"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -212,7 +212,7 @@
                                Margin="0,0,0,0"
                                Padding="0,8,0,0"/>
                 <Button x:Name="btnEditDetails"
-                        Command="{Binding CreateRecipeCommand}"
+                        Command="{Binding EditRecipeDetailsCommand}"
                         BorderThickness="0"
                         Foreground="White"
                         FontSize="10"

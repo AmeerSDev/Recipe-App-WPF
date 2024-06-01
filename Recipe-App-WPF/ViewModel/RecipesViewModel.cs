@@ -80,7 +80,6 @@ namespace Recipe_App_WPF.ViewModel
             RecipesEventAggregator.Instance.RecipeDeleted += OnRecipeDeleted;
             RecipesEventAggregator.Instance.RecipeCreated += OnRecipeCreated;
             RecipesEventAggregator.Instance.RecipeEdited += OnRecipeEdited;
-            //RecipeSelectedCommand = new ViewModelCommand(ExecuteRecipeSelectedCommand);
         }
         private void ExecuteOpenRecipeCreateViewCommand(object obj)
         {
@@ -116,26 +115,6 @@ namespace Recipe_App_WPF.ViewModel
         private async void OnRecipeCreated(object sender, EventArgs e)
         {
             await RefreshRecipesList();
-        }
-
-        private async void ExecuteRecipeSelectedCommand(object obj)
-        {
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
-                var response = await client.GetAsync($"http://localhost:8000/api/recipe/recipes/{obj}/");
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    var recipesItems = JsonConvert.DeserializeObject<RecipeModel>(responseContent);
-                    //InitializeData(recipesItems);
-                }
-                else
-                {
-                    //MessageBox.Show("Couldn't Retrieve User Recipes!");
-                }
-            }
         }
 
         private async Task LoadRecipesUserData()
