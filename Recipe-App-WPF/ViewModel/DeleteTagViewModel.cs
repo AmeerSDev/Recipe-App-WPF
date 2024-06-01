@@ -61,7 +61,7 @@ namespace Recipe_App_WPF.ViewModel
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
 
-                // Construct the URL with the RecipeUniqueID
+                // Construct the URL with the TagUniqueID
                 string url = $"http://localhost:8000/api/recipe/tags/{TagUniqueID}/";
 
                 // Use DELETE method
@@ -69,7 +69,7 @@ namespace Recipe_App_WPF.ViewModel
 
                 if (response.StatusCode == HttpStatusCode.NoContent)
                 {
-                    // Recipe deletion was successful
+                    // Tag deletion was successful
                     TagsEventAggregator.Instance.PublishTagDeleted();
                     Debug.WriteLine("Tag has been deleted successfully");
                 }
