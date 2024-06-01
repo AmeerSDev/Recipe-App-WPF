@@ -35,6 +35,11 @@ namespace Recipe_App_WPF.Helpers
             RecipeDeleted?.Invoke(this, EventArgs.Empty);
         }
 
+        public void PublishRecipeEdited()
+        {
+            RecipeEdited?.Invoke(this, EventArgs.Empty);
+        }
+
         // Add other recipe-related events and methods as needed
     }
 }

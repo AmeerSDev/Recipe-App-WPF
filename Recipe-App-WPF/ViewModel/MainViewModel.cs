@@ -75,6 +75,7 @@ namespace Recipe_App_WPF.ViewModel
             //Initialze commands
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
             ShowRecipesViewCommand = new ViewModelCommand(ExecuteRecipesViewCommand);
+            ShowTagsViewCommand = new ViewModelCommand(ExecuteTagsViewCommand);
 
             //Default view
             ExecuteShowHomeViewCommand(null);
@@ -97,10 +98,17 @@ namespace Recipe_App_WPF.ViewModel
             Caption = "Recipes";
             Icon = IconChar.BowlFood;
         }
+        private void ExecuteTagsViewCommand(object obj)
+        {
+            CurrentChildView = new TagsViewModel();
+            Caption = "Tags";
+            Icon = IconChar.Tags;
+        }
 
         //--> Commands
         public ICommand ShowHomeViewCommand { get; }
         public ICommand ShowRecipesViewCommand { get; }
+        public ICommand ShowTagsViewCommand { get; }
         private async void LoadCurrentUserData()
         {
             using (var client = new HttpClient())
