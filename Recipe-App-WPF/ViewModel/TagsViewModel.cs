@@ -69,7 +69,9 @@ namespace Recipe_App_WPF.ViewModel
 
         private void ExecuteOpenTagEditViewCommand(object obj)
         {
-            throw new NotImplementedException();
+            IsEditTagPopUpOpen = true;
+            var editTagViewModel = new EditRecipeDetailsViewModel();
+            editTagViewModel.IsViewVisible = true;
         }
 
         private void ExecuteOpenTagDeleteViewCommand(object obj)

@@ -124,7 +124,7 @@
 
                     <Popup x:Name="editTagPopUp" IsOpen="{Binding IsEditTagPopUpOpen}" StaysOpen="False"
                                PlacementTarget="{Binding ElementName=btnTagEdit}" Placement="Center" HorizontalOffset="-80" VerticalOffset="130">
-                        <local:EditRecipeView />
+                        <local:EditTagView />
                     </Popup>
                 </Button>
             </StackPanel>
