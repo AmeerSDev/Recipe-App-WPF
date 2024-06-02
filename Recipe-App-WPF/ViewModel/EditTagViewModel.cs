@@ -58,6 +58,10 @@ namespace Recipe_App_WPF.ViewModel
         private bool CanExecuteDeleteTagCommand(object obj)
         {
             bool validData;
+            if(obj == null)
+            {
+                return false;
+            }
             if (string.IsNullOrWhiteSpace(CurrentTagModel.Name)
                 || CurrentTagModel.Id<= 0)
                 validData = false;
