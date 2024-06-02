@@ -103,7 +103,9 @@ namespace Recipe_App_WPF.ViewModel
 
         private void ExecuteOpenIngredientDeleteViewCommand(object obj)
         {
-            throw new NotImplementedException();
+            IsDeleteIngredientPopUpOpen = true;
+            var deleteIngredientViewModel = new DeleteIngredientViewModel();
+            deleteIngredientViewModel.IsViewVisible = true;
         }
 
         private void InitializeIngredientsData(List<IngredientModel> responseData)

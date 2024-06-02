@@ -70,15 +70,15 @@ namespace Recipe_App_WPF.ViewModel
         private void ExecuteOpenTagEditViewCommand(object obj)
         {
             IsEditTagPopUpOpen = true;
-            var editTagViewModel = new EditRecipeDetailsViewModel();
+            var editTagViewModel = new EditTagViewModel();
             editTagViewModel.IsViewVisible = true;
         }
 
         private void ExecuteOpenTagDeleteViewCommand(object obj)
         {
             IsDeleteTagPopUpOpen = true;
-            var deleteRecipeViewModel = new DeleteTagViewModel();
-            deleteRecipeViewModel.IsViewVisible = true;
+            var deleteTagViewModel = new DeleteTagViewModel();
+            deleteTagViewModel.IsViewVisible = true;
         }
 
         private async void OnTagEdited(object sender, EventArgs e)
