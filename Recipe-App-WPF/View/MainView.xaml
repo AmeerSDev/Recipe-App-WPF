@@ -30,6 +30,10 @@
             <local:TagsView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModel:IngredientsViewModel}">
+            <local:IngredientsView/>
+        </DataTemplate>
+
     </Window.Resources>
     <Border CornerRadius="10"
             BorderThickness="2">
@@ -111,7 +115,8 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource sideMenuIconColor}">
+                                 Tag="{StaticResource sideMenuIconColor}"
+                                 Command="{Binding ShowIngredientsViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Carrot" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Ingredients" Style="{StaticResource menuButtonText}"/>

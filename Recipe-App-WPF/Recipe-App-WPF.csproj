@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="Extensions\HttpClientExtentions.cs" />
     <Compile Include="Extensions\SecureStringExtensions.cs" />
+    <Compile Include="Helpers\IngredientsEventAggregator.cs" />
     <Compile Include="Helpers\RecipesEventAggregator.cs" />
     <Compile Include="Helpers\TagsEventAggregator.cs" />
     <Compile Include="Model\IngredientModel.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="ViewModel\EditRecipeViewModel.cs" />
     <Compile Include="ViewModel\EditTagViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\IngredientsViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\RecipesViewModel.cs" />
@@ -110,6 +112,9 @@
     </Compile>
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\IngredientsView.xaml.cs">
+      <DependentUpon>IngredientsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -167,6 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\IngredientsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
