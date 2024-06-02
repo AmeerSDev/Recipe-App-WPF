@@ -81,6 +81,7 @@
     <Compile Include="ViewModel\DeleteIngredientViewModel.cs" />
     <Compile Include="ViewModel\DeleteRecipeViewModel.cs" />
     <Compile Include="ViewModel\DeleteTagViewModel.cs" />
+    <Compile Include="ViewModel\EditIngredientViewModel.cs" />
     <Compile Include="ViewModel\EditRecipeDetailsViewModel.cs" />
     <Compile Include="ViewModel\EditRecipeViewModel.cs" />
     <Compile Include="ViewModel\EditTagViewModel.cs" />
@@ -104,6 +105,9 @@
     </Compile>
     <Compile Include="View\DeleteTagView.xaml.cs">
       <DependentUpon>DeleteTagView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditIngredientView.xaml.cs">
+      <DependentUpon>EditIngredientView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditRecipeDetailsView.xaml.cs">
       <DependentUpon>EditRecipeDetailsView.xaml</DependentUpon>
@@ -164,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\DeleteTagView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditIngredientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

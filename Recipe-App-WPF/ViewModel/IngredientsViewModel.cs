@@ -98,7 +98,9 @@ namespace Recipe_App_WPF.ViewModel
         }
         private void ExecuteOpenIngredientEditViewCommand(object obj)
         {
-            throw new NotImplementedException();
+            IsEditIngredientPopUpOpen = true;
+            var editIngredientViewModel = new EditIngredientViewModel();
+            editIngredientViewModel.IsViewVisible = true;
         }
 
         private void ExecuteOpenIngredientDeleteViewCommand(object obj)
