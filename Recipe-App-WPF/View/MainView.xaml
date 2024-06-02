@@ -125,8 +125,8 @@
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource sideMenuIconColor}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Tools" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Settings" Style="{StaticResource menuButtonText}"/>
+                            <fa:IconImage Icon="DoorOpen" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Logout" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
 

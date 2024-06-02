@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Recipe_App_WPF.Extensions;
+using Recipe_App_WPF.Helpers;
 using Recipe_App_WPF.Model;
 using System;
 using System.Collections.Generic;
@@ -81,37 +82,85 @@ namespace Recipe_App_WPF.ViewModel
 
         private async void ExecuteEditRecipeDetailsCommand(object obj)
         {
+            // Create a dictionary with non-null values
+            var values = new Dictionary<string, object>
+                {
+                    { "id", CurrentRecipeDetails.ID },
+                    { "title", CurrentRecipeDetails.Title },
+                    { "time_minutes", CurrentRecipeDetails.Time_Minutes},
+                    { "link", CurrentRecipeDetails.Link},
+                    { "price", CurrentRecipeDetails.Price.ToString()},
+                    { "tags", _NestedRecipeObjectToJsonObject(CurrentRecipeDetails.TagsNames) },
+                    { "ingredients", _NestedRecipeObjectToJsonObject(CurrentRecipeDetails.IngredientsNames)},
+                    { "description", CurrentRecipeDetails.Description},
+                    {"image", null }
+                };
 
-        }
+            // Remove entries with null, empty, whitespace-only values, values less than or equal to 0, or empty lists
+            values = values
+                .Where(pair => pair.Value != null &&
+                               (!(pair.Value is string) || !string.IsNullOrWhiteSpace((string)pair.Value)) &&
+                               (!(pair.Value is int) || (int)pair.Value > 0) &&
+                               (!(pair.Value is List<Dictionary<string, object>>) || ((List<Dictionary<string, object>>)pair.Value).Count > 0) &&
+                               !(pair.Key == "price" && int.TryParse((string)pair.Value, out int price) && price <= 0))
+                .ToDictionary(pair => pair.Key, pair => pair.Value);
 
-        public async void SetUpCurrentRecipeToEdit(object selectedRecipeIDToEdit)
-        {
-            using (var client = new HttpClient())
+
+            // Convert the dictionary to a JSON string
+            string jsonPayload = JsonConvert.SerializeObject(values);
+
+            using (HttpClient client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
-                var response = await client.GetAsync($"http://localhost:8000/api/recipe/recipes/{selectedRecipeIDToEdit}/");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token",
+                                                                                            SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
+
+                // Create StringContent with JSON payload
+                var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+                // Send PATCH request
+                var response = await client.PatchAsync($"http://localhost:8000/api/recipe/recipes/{CurrentRecipeDetails.ID}/", content);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    var retrievedRecipetoEdit = JsonConvert.DeserializeObject<RecipeModel>(responseContent);
-                    _currentRecipeDetails = retrievedRecipetoEdit;
-                    //Debug.WriteLine(_currentRecipeDetails.Title);
-                    //Debug.WriteLine(_currentRecipeDetails.Time_Minutes);
-                    //Debug.WriteLine(_currentRecipeDetails.TagsNames);
-                    //Debug.WriteLine(_currentRecipeDetails.Tags);
-                    //Debug.WriteLine(_currentRecipeDetails.Price);
-                    //Debug.WriteLine(_currentRecipeDetails.Link);
-                    //Debug.WriteLine(_currentRecipeDetails.IngredientsNames);
-                    //Debug.WriteLine(_currentRecipeDetails.Ingredients);
-                    //Debug.WriteLine(_currentRecipeDetails.Image);
-                    //Debug.WriteLine(_currentRecipeDetails.ID);
+                    RecipesEventAggregator.Instance.PublishRecipeEdited();
+                    Debug.WriteLine("Recipe has been patched successfully");
                 }
                 else
                 {
-                    //MessageBox.Show("Couldn't Retrieve User Recipes!");
+                    // Optionally, log the response content for more details
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine($"Response Content: {responseContent}");
                 }
             }
+        }
+
+        private List<Dictionary<string, object>> _NestedRecipeObjectToJsonObject(string concatedObjectsNames)
+        {
+            if (string.IsNullOrEmpty(concatedObjectsNames))
+            {
+                return new List<Dictionary<string, object>>(); // Return an empty list
+            }
+            else
+            {
+                var nestedRecipeObjects = new List<Dictionary<string, object>>();
+
+                // Split the comma-separated string into individual tags
+                string[] objectsNamesArray = concatedObjectsNames.Split(',');
+
+                // Create a dictionary for each tag and add it to the list
+                foreach (var objectName in objectsNamesArray)
+                {
+                    var recipeObjectsDict = new Dictionary<string, object>
+                {
+                    { "name", objectName.Trim() }    // Trim any extra spaces around the tag name
+                };
+                    nestedRecipeObjects.Add(recipeObjectsDict);
+                }
+
+
+                return nestedRecipeObjects;
+            }
+
         }
     }
 }

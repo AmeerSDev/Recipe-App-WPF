@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Recipe_App_WPF.View"
              xmlns:viewModel="clr-namespace:Recipe_App_WPF.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="250">
+             d:DesignHeight="725" d:DesignWidth="250">
     
     <UserControl.DataContext>
         <viewModel:EditRecipeDetailsViewModel/>
@@ -44,7 +44,7 @@
                        FontFamily="Monteserrat"
                        Foreground="{StaticResource textBoxColor}"
                        FontWeight="Medium"/>
-                <TextBlock Text="Title"
+                <TextBlock Text="Specify Recipe ID"
                                Foreground="{StaticResource textBoxColor}"
                                FontSize="10"
                                FontWeight="Medium"
@@ -52,7 +52,31 @@
                                HorizontalAlignment="Center"
                                Margin="0,35,0,0"/>
 
-                <TextBox x:Name="txtTitle"
+                <TextBox x:Name="txtSpecficRecipeID"
+                               Text="{Binding CurrentRecipeDetails.ID , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                               FontSize="10"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               Foreground="{StaticResource textBoxColor}"
+                               CaretBrush="Gray"
+                               BorderBrush="DarkGray"
+                               Background="Transparent"
+                               BorderThickness="0,0,0,2"
+                               Height="28"
+                               VerticalAlignment="Center"
+                               HorizontalContentAlignment="Center"
+                            
+                               Margin="0,0,0,0"
+                               Padding="0,8,0,0"/>
+            <TextBlock Text="Title"
+                               Foreground="{StaticResource textBoxColor}"
+                               FontSize="10"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               HorizontalAlignment="Center"
+                               Margin="0,35,0,0"/>
+
+            <TextBox x:Name="txtTitle"
                                Text="{Binding CurrentRecipeDetails.Title , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                FontSize="10"
                                FontWeight="Medium"
@@ -68,7 +92,7 @@
                             
                                Margin="0,0,0,0"
                                Padding="0,8,0,0"/>
-                <TextBlock Text="Prep Time"
+            <TextBlock Text="Prep Time"
                                Foreground="{StaticResource textBoxColor}"
                                FontSize="10"
                                FontWeight="Medium"

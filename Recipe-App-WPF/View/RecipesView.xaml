@@ -127,7 +127,7 @@
                     
                     <Popup x:Name="editRecipePopUp" IsOpen="{Binding IsEditRecipePopUpOpen}" StaysOpen="False"
                                PlacementTarget="{Binding ElementName=btnRecipeEdit}" Placement="Center" HorizontalOffset="-80" VerticalOffset="130">
-                        <local:EditRecipeView />
+                        <local:EditRecipeDetailsView />
                     </Popup>
                 </Button>
                 <Button x:Name="btnRecipeCreate"

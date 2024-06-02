@@ -91,8 +91,8 @@ namespace Recipe_App_WPF.ViewModel
         private void ExecuteOpenRecipeEditViewCommand(object obj)
         {
             IsEditRecipePopUpOpen = true;
-            var editRecipeViewModel = new EditRecipeViewModel();
-            editRecipeViewModel.IsViewVisible = true;
+            var editRecipeDetailsViewModel = new EditRecipeDetailsViewModel();
+            editRecipeDetailsViewModel.IsViewVisible = true;
         }
 
         private void ExecuteOpenRecipeDeleteViewCommand(object obj)
