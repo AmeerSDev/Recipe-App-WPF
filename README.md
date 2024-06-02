@@ -15,7 +15,7 @@ a classical full stack app that demonstrates basic CRUD operations on recipes.
 
 
 
-# Backend points
+# Backend Endpoints
 ![image](https://github.com/AmeerSDev/recipe-app-api/assets/54002783/b7877c7e-023f-42ca-b619-a5108793976c)
 
 # Screenshots
