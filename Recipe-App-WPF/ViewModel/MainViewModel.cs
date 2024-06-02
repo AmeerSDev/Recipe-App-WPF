@@ -77,6 +77,7 @@ namespace Recipe_App_WPF.ViewModel
             ShowRecipesViewCommand = new ViewModelCommand(ExecuteRecipesViewCommand);
             ShowTagsViewCommand = new ViewModelCommand(ExecuteTagsViewCommand);
             ShowIngredientsViewCommand = new ViewModelCommand(ExecuteIngredientsViewCommand);
+            ShowLogoutViewCommand = new ViewModelCommand(ExecuteLogoutViewCommand);
 
             //Default view
             ExecuteShowHomeViewCommand(null);
@@ -111,12 +112,19 @@ namespace Recipe_App_WPF.ViewModel
             Caption = "Ingredients";
             Icon = IconChar.Carrot;
         }
+        private void ExecuteLogoutViewCommand(object obj)
+        {
+            CurrentChildView = new LogoutViewModel();
+            Caption = "Logout";
+            Icon = IconChar.DoorOpen;
+        }
 
         //--> Commands
         public ICommand ShowHomeViewCommand { get; }
         public ICommand ShowRecipesViewCommand { get; }
         public ICommand ShowTagsViewCommand { get; }
         public ICommand ShowIngredientsViewCommand { get; }
+        public ICommand ShowLogoutViewCommand { get; }
         private async void LoadCurrentUserData()
         {
             using (var client = new HttpClient())

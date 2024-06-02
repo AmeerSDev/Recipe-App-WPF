@@ -34,6 +34,10 @@
             <local:IngredientsView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModel:LogoutViewModel}">
+            <local:LogoutView/>
+        </DataTemplate>
+
     </Window.Resources>
     <Border CornerRadius="10"
             BorderThickness="2">
@@ -123,7 +127,8 @@
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource sideMenuIconColor}">
+                                 Tag="{StaticResource sideMenuIconColor}"
+                                 Command="{Binding ShowLogoutViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="DoorOpen" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Logout" Style="{StaticResource menuButtonText}"/>
