@@ -83,7 +83,6 @@
     <Compile Include="ViewModel\DeleteTagViewModel.cs" />
     <Compile Include="ViewModel\EditIngredientViewModel.cs" />
     <Compile Include="ViewModel\EditRecipeDetailsViewModel.cs" />
-    <Compile Include="ViewModel\EditRecipeViewModel.cs" />
     <Compile Include="ViewModel\EditTagViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\IngredientsViewModel.cs" />
@@ -111,9 +110,6 @@
     </Compile>
     <Compile Include="View\EditRecipeDetailsView.xaml.cs">
       <DependentUpon>EditRecipeDetailsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\EditRecipeView.xaml.cs">
-      <DependentUpon>EditRecipeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditTagView.xaml.cs">
       <DependentUpon>EditTagView.xaml</DependentUpon>
@@ -176,10 +172,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditRecipeDetailsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\EditRecipeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
