@@ -11,7 +11,8 @@ a classical full stack app that demonstrates basic CRUD operations on recipes.
 
 
 # Architecture
-![image](https://github.com/AmeerSDev/Recipe-App-WPF/assets/54002783/454bf7ef-6641-45f6-aeef-3265afdcce61)
+![image](https://github.com/AmeerSDev/Recipe-App-WPF/assets/54002783/2639bbbb-8aec-41a7-a099-19e606cadc1d)
+
 
 
 
