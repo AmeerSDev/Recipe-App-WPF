@@ -1,5 +1,5 @@
 # Recipe App
-a classical full stack app that demonstrates basic CRUD operations on recipes.
+a classical full stack app that demonstrates CRUD operations on recipes.
 
 ### The project was built with:
 - **ASP.NET WPF** and **C#** for windows app frontend
