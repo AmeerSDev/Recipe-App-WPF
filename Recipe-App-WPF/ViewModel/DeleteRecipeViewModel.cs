@@ -56,27 +56,40 @@ namespace Recipe_App_WPF.ViewModel
         }
         private async void ExecuteDeleteRecipeCommand(object obj)
         {
-            using (var client = new HttpClient())
+            try
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
-
-                // Construct the URL with the RecipeUniqueID
-                string url = $"http://localhost:8000/api/recipe/recipes/{RecipeUniqueID}/";
-
-                // Use DELETE method
-                var response = await client.DeleteAsync(url);
-
-                if (response.StatusCode == HttpStatusCode.NoContent)
+                using (var client = new HttpClient())
                 {
-                    // Recipe deletion was successful
-                    RecipesEventAggregator.Instance.PublishRecipeDeleted();
-                    Debug.WriteLine("Recipe has been deleted successfully");
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
+
+                    // Construct the URL with the RecipeUniqueID
+                    string url = $"http://localhost:8000/api/recipe/recipes/{RecipeUniqueID}/";
+
+                    // Use DELETE method
+                    var response = await client.DeleteAsync(url);
+
+                    if (response.StatusCode == HttpStatusCode.NoContent)
+                    {
+                        // Recipe deletion was successful
+                        RecipesEventAggregator.Instance.PublishRecipeDeleted();
+                        Debug.WriteLine("Recipe has been deleted successfully");
+                    }
+                    else
+                    {
+                        // Handle unsuccessful response
+                        Debug.WriteLine($"Failed to delete recipe. Status code: {response.StatusCode}");
+                    }
                 }
-                else
-                {
-                    // Handle unsuccessful response
-                    Debug.WriteLine($"Failed to delete recipe. Status code: {response.StatusCode}");
-                }
+            }
+            catch (HttpRequestException httpRequestException)
+            {
+                // Handle specific HTTP request exceptions
+                Debug.WriteLine($"Request error: {httpRequestException.Message}");
+            }
+            catch (Exception ex)
+            {
+                // Handle any other exceptions
+                Debug.WriteLine($"An error occurred: {ex.Message}");
             }
         }
     }
