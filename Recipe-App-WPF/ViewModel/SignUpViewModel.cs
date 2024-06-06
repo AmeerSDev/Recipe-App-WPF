@@ -3,6 +3,7 @@ using Recipe_App_WPF.Extensions;
 using Recipe_App_WPF.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Security;
@@ -134,6 +135,8 @@ namespace Recipe_App_WPF.ViewModel
                 else
                 {
                     RegisterMessage = " * Something went wrong upon registeration";
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine($"Response Content: {responseContent}");
                 }
             }
         }

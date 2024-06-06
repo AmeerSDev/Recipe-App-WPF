@@ -107,6 +107,8 @@ namespace Recipe_App_WPF.ViewModel
                 else
                 {
                     Debug.WriteLine("Couldn't Retrieve User Tags!");
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine($"Response Content: {responseContent}");
                 }
             }
         }

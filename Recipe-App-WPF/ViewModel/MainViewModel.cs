@@ -2,13 +2,10 @@
 using Newtonsoft.Json;
 using Recipe_App_WPF.Extensions;
 using Recipe_App_WPF.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace Recipe_App_WPF.ViewModel
@@ -145,8 +142,8 @@ namespace Recipe_App_WPF.ViewModel
                 }
                 else
                 {
-                    //MessageBox.Show("Invalid user, not logged in");
-                    //Application.Current.Shutdown();
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine($"Response Content: {responseContent}"); ;
                 }
             }
         }

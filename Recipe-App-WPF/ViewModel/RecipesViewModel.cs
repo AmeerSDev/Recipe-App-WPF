@@ -5,6 +5,7 @@ using Recipe_App_WPF.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -132,7 +133,8 @@ namespace Recipe_App_WPF.ViewModel
                 }
                 else
                 {
-                    //MessageBox.Show("Couldn't Retrieve User Recipes!");
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine($"Response Content: {responseContent}");
                 }
             }
         }
