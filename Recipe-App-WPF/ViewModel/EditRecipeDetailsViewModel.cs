@@ -82,8 +82,10 @@ namespace Recipe_App_WPF.ViewModel
 
         private async void ExecuteEditRecipeDetailsCommand(object obj)
         {
-            // Create a dictionary with non-null values
-            var values = new Dictionary<string, object>
+            try
+            {
+                // Create a dictionary with non-null values
+                var values = new Dictionary<string, object>
                 {
                     { "id", CurrentRecipeDetails.ID },
                     { "title", CurrentRecipeDetails.Title },
@@ -96,43 +98,56 @@ namespace Recipe_App_WPF.ViewModel
                     {"image", null }
                 };
 
-            // Remove entries with null, empty, whitespace-only values, values less than or equal to 0, or empty lists
-            values = values
-                .Where(pair => pair.Value != null &&
-                               (!(pair.Value is string) || !string.IsNullOrWhiteSpace((string)pair.Value)) &&
-                               (!(pair.Value is int) || (int)pair.Value > 0) &&
-                               (!(pair.Value is List<Dictionary<string, object>>) || ((List<Dictionary<string, object>>)pair.Value).Count > 0) &&
-                               !(pair.Key == "price" && int.TryParse((string)pair.Value, out int price) && price <= 0))
-                .ToDictionary(pair => pair.Key, pair => pair.Value);
+                // Remove entries with null, empty, whitespace-only values, values less than or equal to 0, or empty lists
+                values = values
+                    .Where(pair => pair.Value != null &&
+                                   (!(pair.Value is string) || !string.IsNullOrWhiteSpace((string)pair.Value)) &&
+                                   (!(pair.Value is int) || (int)pair.Value > 0) &&
+                                   (!(pair.Value is List<Dictionary<string, object>>) || ((List<Dictionary<string, object>>)pair.Value).Count > 0) &&
+                                   !(pair.Key == "price" && int.TryParse((string)pair.Value, out int price) && price <= 0))
+                    .ToDictionary(pair => pair.Key, pair => pair.Value);
 
+                // Convert the dictionary to a JSON string
+                string jsonPayload = JsonConvert.SerializeObject(values);
 
-            // Convert the dictionary to a JSON string
-            string jsonPayload = JsonConvert.SerializeObject(values);
-
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token",
-                                                                                            SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
-
-                // Create StringContent with JSON payload
-                var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
-
-                // Send PATCH request
-                var response = await client.PatchAsync($"http://localhost:8000/api/recipe/recipes/{CurrentRecipeDetails.ID}/", content);
-
-                if (response.IsSuccessStatusCode)
+                using (HttpClient client = new HttpClient())
                 {
-                    RecipesEventAggregator.Instance.PublishRecipeEdited();
-                    Debug.WriteLine("Recipe has been patched successfully");
-                }
-                else
-                {
-                    // Optionally, log the response content for more details
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    Debug.WriteLine($"Response Content: {responseContent}");
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token",
+                                                                                                SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
+
+                    // Create StringContent with JSON payload
+                    var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+                    // Send PATCH request
+                    var response = await client.PatchAsync($"http://localhost:8000/api/recipe/recipes/{CurrentRecipeDetails.ID}/", content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        RecipesEventAggregator.Instance.PublishRecipeEdited();
+                        Debug.WriteLine("Recipe has been patched successfully");
+                    }
+                    else
+                    {
+                        // Optionally, log the response content for more details
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        Debug.WriteLine($"Response Content: {responseContent}");
+                    }
                 }
             }
+            catch (HttpRequestException httpRequestException)
+            {
+                Debug.WriteLine($"Request error: {httpRequestException.Message}");
+            }
+            catch (JsonSerializationException jsonSerializationException)
+            {
+                Debug.WriteLine($"Serialization error: {jsonSerializationException.Message}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unexpected error: {ex.Message}");
+            }
         }
+
 
         private List<Dictionary<string, object>> _NestedRecipeObjectToJsonObject(string concatedObjectsNames)
         {

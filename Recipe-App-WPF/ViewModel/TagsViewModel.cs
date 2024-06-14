@@ -93,25 +93,41 @@ namespace Recipe_App_WPF.ViewModel
 
         private async Task LoadTagsUserData()
         {
-            using (var client = new HttpClient())
+            try
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
-                var response = await client.GetAsync("http://localhost:8000/api/recipe/tags/");
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
+                    var response = await client.GetAsync("http://localhost:8000/api/recipe/tags/");
 
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    var recipesItems = JsonConvert.DeserializeObject<List<TagModel>>(responseContent);
-                    InitializeTagsData(recipesItems);
-                }
-                else
-                {
-                    Debug.WriteLine("Couldn't Retrieve User Tags!");
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    Debug.WriteLine($"Response Content: {responseContent}");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        var recipesItems = JsonConvert.DeserializeObject<List<TagModel>>(responseContent);
+                        InitializeTagsData(recipesItems);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Couldn't Retrieve User Tags!");
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        Debug.WriteLine($"Response Content: {responseContent}");
+                    }
                 }
             }
+            catch (HttpRequestException httpRequestException)
+            {
+                Debug.WriteLine($"Request error: {httpRequestException.Message}");
+            }
+            catch (JsonSerializationException jsonSerializationException)
+            {
+                Debug.WriteLine($"Serialization error: {jsonSerializationException.Message}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unexpected error: {ex.Message}");
+            }
         }
+
 
         private void InitializeTagsData(List<TagModel> responseData)
         {

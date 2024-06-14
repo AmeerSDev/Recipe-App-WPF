@@ -115,30 +115,46 @@ namespace Recipe_App_WPF.ViewModel
 
         private async void ExecuteRegisterCommand(object obj)
         {
-            using (var client = new HttpClient())
+            try
             {
-                var values = new Dictionary<string, string>
+                using (var client = new HttpClient())
                 {
-                    { "email", Email },
-                    { "password", SecureStringExtensions.ToUnsecuredString(Password) },
-                    { "name", Name}
-                };
+                    var values = new Dictionary<string, string>
+                    {
+                        { "email", Email },
+                        { "password", SecureStringExtensions.ToUnsecuredString(Password) },
+                        { "name", Name}
+                    };
 
-                var content = new FormUrlEncodedContent(values);
-                var response = await client.PostAsync("http://localhost:8000/api/user/create/", content);
+                    var content = new FormUrlEncodedContent(values);
+                    var response = await client.PostAsync("http://localhost:8000/api/user/create/", content);
 
-                if (response.IsSuccessStatusCode)
-                {
-                    // Login was successful, read the token
-                    RegisterMessage = "You have successfully registered!";
-                }
-                else
-                {
-                    RegisterMessage = " * Something went wrong upon registeration";
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    Debug.WriteLine($"Response Content: {responseContent}");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Login was successful, read the token
+                        RegisterMessage = "You have successfully registered!";
+                    }
+                    else
+                    {
+                        RegisterMessage = " * Something went wrong upon registration";
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        Debug.WriteLine($"Response Content: {responseContent}");
+                    }
                 }
             }
+            catch (HttpRequestException httpRequestException)
+            {
+                Debug.WriteLine($"Request error: {httpRequestException.Message}");
+            }
+            catch (JsonSerializationException jsonSerializationException)
+            {
+                Debug.WriteLine($"Serialization error: {jsonSerializationException.Message}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unexpected error: {ex.Message}");
+            }
         }
+
     }
 }

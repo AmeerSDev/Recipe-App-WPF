@@ -3,6 +3,7 @@ using Recipe_App_WPF.Extensions;
 using Recipe_App_WPF.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -120,36 +121,52 @@ namespace Recipe_App_WPF.ViewModel
 
         private async void ExecuteLoginCommand(object obj)
         {
-            using (var client = new HttpClient())
+            try
             {
-                var values = new Dictionary<string, string>
+                using (var client = new HttpClient())
                 {
-                    { "email", Email },
-                    { "password", SecureStringExtensions.ToUnsecuredString(Password) }
-                };
+                    var values = new Dictionary<string, string>
+                    {
+                        { "email", Email },
+                        { "password", SecureStringExtensions.ToUnsecuredString(Password) }
+                    };
 
-                var content = new FormUrlEncodedContent(values);
-                var response = await client.PostAsync("http://localhost:8000/api/user/token/", content);
+                    var content = new FormUrlEncodedContent(values);
+                    var response = await client.PostAsync("http://localhost:8000/api/user/token/", content);
 
-                if (response.IsSuccessStatusCode)
-                {
-                    // Login was successful, read the token
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    var tokenResponse = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseContent);
-                    string token = tokenResponse["token"];
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Login was successful, read the token
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        var tokenResponse = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseContent);
+                        string token = tokenResponse["token"];
 
-                    // Update LoginModel with the token and raise event
-                    LoginModel.GetInstance().Token = token.ToSecureString();
-                    LoginModel.GetInstance().LoggedIn = true;
-                    LoginModel.GetInstance().CurrentLoggedInAccount = _loginUserAccount;
-                    IsViewVisible = false;
-                }
-                else
-                {
-                    ErrorMessage = " * Invalid email or password";
+                        // Update LoginModel with the token and raise event
+                        LoginModel.GetInstance().Token = token.ToSecureString();
+                        LoginModel.GetInstance().LoggedIn = true;
+                        LoginModel.GetInstance().CurrentLoggedInAccount = _loginUserAccount;
+                        IsViewVisible = false;
+                    }
+                    else
+                    {
+                        ErrorMessage = " * Invalid email or password";
+                    }
                 }
             }
+            catch (HttpRequestException httpRequestException)
+            {
+                Debug.WriteLine($"Request error: {httpRequestException.Message}");
+            }
+            catch (JsonSerializationException jsonSerializationException)
+            {
+                Debug.WriteLine($"Serialization error: {jsonSerializationException.Message}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unexpected error: {ex.Message}");
+            }
         }
+
 
     }
 }

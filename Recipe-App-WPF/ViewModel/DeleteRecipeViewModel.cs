@@ -77,7 +77,8 @@ namespace Recipe_App_WPF.ViewModel
                     else
                     {
                         // Handle unsuccessful response
-                        Debug.WriteLine($"Failed to delete recipe. Status code: {response.StatusCode}");
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        Debug.WriteLine($"Failed to delete recipe. Status code: {response.StatusCode}, Response Content: {responseContent}");
                     }
                 }
             }
@@ -86,11 +87,22 @@ namespace Recipe_App_WPF.ViewModel
                 // Handle specific HTTP request exceptions
                 Debug.WriteLine($"Request error: {httpRequestException.Message}");
             }
+            catch (TaskCanceledException taskCanceledException)
+            {
+                // Handle timeout or cancellation exceptions
+                Debug.WriteLine($"Request timed out: {taskCanceledException.Message}");
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                // Handle invalid operations, such as invalid URL format
+                Debug.WriteLine($"Invalid operation: {invalidOperationException.Message}");
+            }
             catch (Exception ex)
             {
                 // Handle any other exceptions
-                Debug.WriteLine($"An error occurred: {ex.Message}");
+                Debug.WriteLine($"An unexpected error occurred: {ex.Message}");
             }
         }
+
     }
 }

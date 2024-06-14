@@ -96,45 +96,61 @@ namespace Recipe_App_WPF.ViewModel
 
         private async void ExecuteSaveProfileDetailsCommand(object obj)
         {
-            // Create a dictionary with non-null values
-            var values = new Dictionary<string, string>
+            try
             {
-                { "email", Email ?? _loginModel.CurrentLoggedInAccount.Email },
-                { "password", SecureStringExtensions.ToUnsecuredString(Password) },
-                { "name", Name ?? _loginModel.CurrentLoggedInAccount.Name }
-            };
-
-            // Remove entries with null values
-            values = values
-                .Where(pair => pair.Value != null && pair.Value != string.Empty)
-                .ToDictionary(pair => pair.Key, pair => pair.Value);
-
-            // Convert the dictionary to a JSON string
-            string jsonPayload = JsonConvert.SerializeObject(values);
-
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", 
-                                                                                            SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
-
-                // Create StringContent with JSON payload
-                var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
-
-                // Send PATCH request
-                var response = await client.PatchAsync("http://localhost:8000/api/user/me/", content);
-
-                if (response.IsSuccessStatusCode)
+                // Create a dictionary with non-null values
+                var values = new Dictionary<string, string>
                 {
-                    _profileDetailsModel.ProfileDetailsMessage = "Your new profile details have been saved successfully!";
-                }
-                else
+                    { "email", Email ?? _loginModel.CurrentLoggedInAccount.Email },
+                    { "password", SecureStringExtensions.ToUnsecuredString(Password) },
+                    { "name", Name ?? _loginModel.CurrentLoggedInAccount.Name }
+                };
+
+                // Remove entries with null values
+                values = values
+                    .Where(pair => pair.Value != null && pair.Value != string.Empty)
+                    .ToDictionary(pair => pair.Key, pair => pair.Value);
+
+                // Convert the dictionary to a JSON string
+                string jsonPayload = JsonConvert.SerializeObject(values);
+
+                using (HttpClient client = new HttpClient())
                 {
-                    _profileDetailsModel.ProfileDetailsMessage = $" * Something went wrong. Error: {response.StatusCode} - {response.ReasonPhrase}";
-                    // Optionally, log the response content for more details
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    Debug.WriteLine($"Response Content: {responseContent}");
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token",
+                                                                                                SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
+
+                    // Create StringContent with JSON payload
+                    var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+                    // Send PATCH request
+                    var response = await client.PatchAsync("http://localhost:8000/api/user/me/", content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        _profileDetailsModel.ProfileDetailsMessage = "Your new profile details have been saved successfully!";
+                    }
+                    else
+                    {
+                        _profileDetailsModel.ProfileDetailsMessage = $" * Something went wrong. Error: {response.StatusCode} - {response.ReasonPhrase}";
+                        // Optionally, log the response content for more details
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        Debug.WriteLine($"Response Content: {responseContent}");
+                    }
                 }
             }
+            catch (HttpRequestException httpRequestException)
+            {
+                Debug.WriteLine($"Request error: {httpRequestException.Message}");
+            }
+            catch (JsonSerializationException jsonSerializationException)
+            {
+                Debug.WriteLine($"Serialization error: {jsonSerializationException.Message}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unexpected error: {ex.Message}");
+            }
         }
+
     }
 }

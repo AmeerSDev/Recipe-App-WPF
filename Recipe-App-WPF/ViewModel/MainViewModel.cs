@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Recipe_App_WPF.Extensions;
 using Recipe_App_WPF.Model;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
@@ -124,28 +125,43 @@ namespace Recipe_App_WPF.ViewModel
         public ICommand ShowLogoutViewCommand { get; }
         private async void LoadCurrentUserData()
         {
-            using (var client = new HttpClient())
+            try
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
-                var response = await client.GetAsync("http://localhost:8000/api/user/me/");
-
-                 if (response.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    var tokenResponse = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseContent);
-                    CurrentUserAccount = new UserAccountModel()
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", SecureStringExtensions.ToUnsecuredString(_loginModel.Token));
+                    var response = await client.GetAsync("http://localhost:8000/api/user/me/");
+
+                    if (response.IsSuccessStatusCode)
                     {
-                        Email = tokenResponse["email"],
-                        Name = $"Welcome {tokenResponse["name"]} "
-
-                    };
-                }
-                else
-                {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    Debug.WriteLine($"Response Content: {responseContent}"); ;
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        var tokenResponse = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseContent);
+                        CurrentUserAccount = new UserAccountModel()
+                        {
+                            Email = tokenResponse["email"],
+                            Name = $"Welcome {tokenResponse["name"]} "
+                        };
+                    }
+                    else
+                    {
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        Debug.WriteLine($"Response Content: {responseContent}");
+                    }
                 }
             }
+            catch (HttpRequestException httpRequestException)
+            {
+                Debug.WriteLine($"Request error: {httpRequestException.Message}");
+            }
+            catch (JsonSerializationException jsonSerializationException)
+            {
+                Debug.WriteLine($"Serialization error: {jsonSerializationException.Message}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unexpected error: {ex.Message}");
+            }
         }
+
     }
 }
